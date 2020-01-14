@@ -45,9 +45,9 @@ namespace KurtisMcCammon1
             //FLOATS casting also use lines
             // Calculate the width and height of each cell in pixels
             // CELL WIDTH = WINDOW WIDTH / NUMBER OF CELLS IN X
-            float cellWidth = (float)graphicsPanel1.ClientSize.Width / universe.universe.GetLength(0);
+            float cellWidth = (float)graphicsPanel1.ClientSize.Width / universe.CellVerse.GetLength(0);
             // CELL HEIGHT = WINDOW HEIGHT / NUMBER OF CELLS IN Y
-            float cellHeight = (float)graphicsPanel1.ClientSize.Height / universe.universe.GetLength(1);
+            float cellHeight = (float)graphicsPanel1.ClientSize.Height / universe.CellVerse.GetLength(1);
 
             // A Pen for drawing the grid lines (color, width)
             Pen gridPen = new Pen(gridColor, 1);
@@ -55,11 +55,12 @@ namespace KurtisMcCammon1
             // A Brush for filling living cells interiors (color)
             Brush cellBrush = new SolidBrush(cellColor);
 
+
             // Iterate through the universe in the y, top to bottom
-            for (int y = 0; y < universe.universe.GetLength(1); y++)
+            for (int y = 0; y < universe.CellVerse.GetLength(1); y++)
             {
                 // Iterate through the universe in the x, left to right
-                for (int x = 0; x < universe.universe.GetLength(0); x++)
+                for (int x = 0; x < universe.CellVerse.GetLength(0); x++)
                 {
                     // A rectangle to represent each cell in pixels
                     RectangleF cellRect = Rectangle.Empty;
@@ -68,26 +69,31 @@ namespace KurtisMcCammon1
                     cellRect.Width = cellWidth;
                     cellRect.Height = cellHeight;
                     Font font = new Font("Arial", 20f);
+                    //brush for text
                     Brush text = Brushes.Green;
 
 
                     StringFormat stringFormat = new StringFormat();
                     stringFormat.Alignment = StringAlignment.Center;
                     stringFormat.LineAlignment = StringAlignment.Center;
-                    if(universe.neighbourCount[x, y] > 3 || universe.neighbourCount[x, y] < 2 && universe.universe[x,y])
-                    {
-                        text = Brushes.Red;
-                    }
 
                     // Fill the cell with a brush if alive
-                    if (universe.universe[x, y] == true)
+                    if (universe.CellVerse[x, y])
                     {
-
                         e.Graphics.FillRectangle(cellBrush, cellRect);
+                        if(universe.neighbourCount[x,y] > 3 || universe.neighbourCount[x, y] < 2)
+                        {
+                            text = Brushes.DarkRed;
+                        }
                         e.Graphics.DrawString(universe.neighbourCount[x, y].ToString(), font, text, cellRect, stringFormat);
                     }
-                    if (universe.neighbourCount[x, y] != 0)
+                    else if(universe.neighbourCount[x,y] != 0 && !(universe.CellVerse[x, y]))
                     {
+                        text = Brushes.Gray;
+                        if(universe.neighbourCount[x, y] == 3)
+                        {
+                            text = Brushes.Green;
+                        }
                         e.Graphics.DrawString(universe.neighbourCount[x, y].ToString(), font, text, cellRect, stringFormat);
                     }
 
@@ -107,8 +113,8 @@ namespace KurtisMcCammon1
             if (e.Button == MouseButtons.Left)
             {
                 // Calculate the width and height of each cell in pixels
-                int cellWidth = graphicsPanel1.ClientSize.Width / universe.universe.GetLength(0);
-                int cellHeight = graphicsPanel1.ClientSize.Height / universe.universe.GetLength(1);
+                int cellWidth = graphicsPanel1.ClientSize.Width / universe.CellVerse.GetLength(0);
+                int cellHeight = graphicsPanel1.ClientSize.Height / universe.CellVerse.GetLength(1);
 
                 // Calculate the cell that was clicked in
                 // CELL X = MOUSE X / CELL WIDTH
@@ -117,7 +123,7 @@ namespace KurtisMcCammon1
                 int y = e.Y / cellHeight;
 
                 // Toggle the cell's state
-                universe.universe[x, y] = !universe.universe[x, y];
+                universe.CellVerse[x, y] = !universe.CellVerse[x, y];
 
                 //count
                 universe.CellCount();
@@ -127,30 +133,25 @@ namespace KurtisMcCammon1
             }
         }
 
-        private void _Play_Click(object sender, EventArgs e)
+        private void _PlayTime(object sender, EventArgs e)
         {
             timer.Start();
             toolStripStatusLabelGenerations.Text = "Generations = " + universe.generations.ToString();
             graphicsPanel1.Invalidate();
         }
 
-        private void _Pause_Click(object sender, EventArgs e)
+        private void _PauseTime(object sender, EventArgs e)
         {
             timer.Stop();
             toolStripStatusLabelGenerations.Text = "Generations = " + universe.generations.ToString();
             graphicsPanel1.Invalidate();
         }
 
-        private void _Next_Click(object sender, EventArgs e)
+        private void _NextGen(object sender, EventArgs e)
         {
             universe.NextGeneration();
             toolStripStatusLabelGenerations.Text = "Generations = " + universe.generations.ToString();
             graphicsPanel1.Invalidate();
-        }
-
-        private void statusStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
         }
 
         private void _NewFile(object sender, EventArgs e)
@@ -160,6 +161,11 @@ namespace KurtisMcCammon1
             CellCount.Text = "Count = " + universe.liveCells.ToString();
             timer.Stop();
             graphicsPanel1.Invalidate();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

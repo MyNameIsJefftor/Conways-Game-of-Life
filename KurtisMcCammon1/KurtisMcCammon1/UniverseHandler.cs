@@ -12,7 +12,7 @@ namespace KurtisMcCammon1
 {
     public class UniverseHandler
     {
-        public bool[,] universe { get; private set; }
+        public bool[,] CellVerse { get; private set; }
         public int generations { get; private set; }
         bool[,] scratchPad { get; set; }
         public int[,] neighbourCount { get; private set; }
@@ -21,16 +21,16 @@ namespace KurtisMcCammon1
 
         public UniverseHandler()
         {
-            universe = new bool[10, 10];
+            CellVerse = new bool[10, 10];
             neighbourCount = new int[10, 10];
             generations = 0;
         }
         public void CellCount()
         {
             liveCells = 0;
-            for (int y = 0; y < universe.GetLength(1); y++)
+            for (int y = 0; y < CellVerse.GetLength(1); y++)
             {
-                for (int x = 0; x < universe.GetLength(0); x++)
+                for (int x = 0; x < CellVerse.GetLength(0); x++)
                 {
                     NeighborCheck(x, y);
                 }
@@ -62,53 +62,53 @@ namespace KurtisMcCammon1
         private void NeighborCheck(int x, int y)
         {
             int posx = x; int posy = y;
-            if (universe[posx, posy])
+            if (CellVerse[posx, posy])
             {
                 liveCells++;
             }
             neighbourCount[posx, posy] = 0;
             //top
             //upleft
-            if (x - 1 >= 0 && y - 1 >= 0 && universe[x - 1, y - 1])
+            if (x - 1 >= 0 && y - 1 >= 0 && CellVerse[x - 1, y - 1])
             {
                 neighbourCount[posx, posy]++;
             }
             //up
-            if (y - 1 >= 0 && universe[x, y - 1])
+            if (y - 1 >= 0 && CellVerse[x, y - 1])
             {
                 neighbourCount[posx, posy]++;
             }
             //upright
-            if (x + 1 < universe.GetLength(0) && y - 1 >= 0 && universe[x + 1, y - 1])
+            if (x + 1 < CellVerse.GetLength(0) && y - 1 >= 0 && CellVerse[x + 1, y - 1])
             {
                 neighbourCount[posx, posy]++;
             }
 
             //middle
             //left
-            if (x - 1 >= 0 && universe[x - 1, y])
+            if (x - 1 >= 0 && CellVerse[x - 1, y])
             {
                 neighbourCount[posx, posy]++;
             }
             //right
-            if (x + 1 < universe.GetLength(0) && universe[x + 1, y])
+            if (x + 1 < CellVerse.GetLength(0) && CellVerse[x + 1, y])
             {
                 neighbourCount[posx, posy]++;
             }
 
             //bottom
             //downleft
-            if (x - 1 >= 0 && y + 1 < universe.GetLength(1) && universe[x - 1, y + 1])
+            if (x - 1 >= 0 && y + 1 < CellVerse.GetLength(1) && CellVerse[x - 1, y + 1])
             {
                 neighbourCount[posx, posy]++;
             }
             //down
-            if (y + 1 < universe.GetLength(1) && universe[x, y + 1])
+            if (y + 1 < CellVerse.GetLength(1) && CellVerse[x, y + 1])
             {
                 neighbourCount[posx, posy]++;
             }
             //downright
-            if (x + 1 < universe.GetLength(0) && y + 1 < universe.GetLength(1) && universe[x + 1, y + 1])
+            if (x + 1 < CellVerse.GetLength(0) && y + 1 < CellVerse.GetLength(1) && CellVerse[x + 1, y + 1])
             {
                 neighbourCount[posx, posy]++;
             }
@@ -116,17 +116,17 @@ namespace KurtisMcCammon1
         public void NextGeneration()
         {
             liveCells = 0;
-            bool[,] temp = universe;
-            scratchPad = new bool[universe.GetLength(0), universe.GetLength(1)];
+            bool[,] temp = CellVerse;
+            scratchPad = new bool[CellVerse.GetLength(0), CellVerse.GetLength(1)];
             scratchPad = temp;
-            for (int y = 0; y < universe.GetLength(1); y++)
+            for (int y = 0; y < CellVerse.GetLength(1); y++)
             {
-                for (int x = 0; x < universe.GetLength(0); x++)
+                for (int x = 0; x < CellVerse.GetLength(0); x++)
                 {
                     VibeCheck(x, y);
                 }
             }
-            universe = scratchPad;
+            CellVerse = scratchPad;
             CellCount();
             generations++;
         }
