@@ -27,7 +27,7 @@ namespace KurtisMcCammon1
             // Setup the timer
             timer.Interval = 100; // milliseconds
             timer.Tick += Timer_Tick;
-            timer.Enabled = true; // start timer running
+            timer.Enabled = false; // stop timer running
         }
 
         // Calculate the next generation of cells
@@ -37,6 +37,7 @@ namespace KurtisMcCammon1
         {
             universe.NextGeneration();
             toolStripStatusLabelGenerations.Text = "Generations = " + universe.generations.ToString();
+            graphicsPanel1.Invalidate();
         }
 
         private void graphicsPanel1_Paint(object sender, PaintEventArgs e)
@@ -66,11 +67,28 @@ namespace KurtisMcCammon1
                     cellRect.Y = y * cellHeight;
                     cellRect.Width = cellWidth;
                     cellRect.Height = cellHeight;
+                    Font font = new Font("Arial", 20f);
+                    Brush text = Brushes.Green;
+
+
+                    StringFormat stringFormat = new StringFormat();
+                    stringFormat.Alignment = StringAlignment.Center;
+                    stringFormat.LineAlignment = StringAlignment.Center;
+                    if(universe.neighbourCount[x, y] > 3 || universe.neighbourCount[x, y] < 2 && universe.universe[x,y])
+                    {
+                        text = Brushes.Red;
+                    }
 
                     // Fill the cell with a brush if alive
                     if (universe.universe[x, y] == true)
                     {
+
                         e.Graphics.FillRectangle(cellBrush, cellRect);
+                        e.Graphics.DrawString(universe.neighbourCount[x, y].ToString(), font, text, cellRect, stringFormat);
+                    }
+                    if (universe.neighbourCount[x, y] != 0)
+                    {
+                        e.Graphics.DrawString(universe.neighbourCount[x, y].ToString(), font, text, cellRect, stringFormat);
                     }
 
                     // Outline the cell with a pen
@@ -108,34 +126,40 @@ namespace KurtisMcCammon1
                 graphicsPanel1.Invalidate();
             }
         }
-        private void _NewFileButton_Click(object sender, EventArgs e)
-        {
-            universe = new UniverseHandler();
-            toolStripStatusLabelGenerations.Text = "Generations = " + universe.generations.ToString();
-            graphicsPanel1.Invalidate();
-        }
 
         private void _Play_Click(object sender, EventArgs e)
         {
             timer.Start();
             toolStripStatusLabelGenerations.Text = "Generations = " + universe.generations.ToString();
+            graphicsPanel1.Invalidate();
         }
 
         private void _Pause_Click(object sender, EventArgs e)
         {
             timer.Stop();
             toolStripStatusLabelGenerations.Text = "Generations = " + universe.generations.ToString();
+            graphicsPanel1.Invalidate();
         }
 
         private void _Next_Click(object sender, EventArgs e)
         {
             universe.NextGeneration();
             toolStripStatusLabelGenerations.Text = "Generations = " + universe.generations.ToString();
+            graphicsPanel1.Invalidate();
         }
 
         private void statusStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
+        }
+
+        private void _NewFile(object sender, EventArgs e)
+        {
+            universe = new UniverseHandler();
+            toolStripStatusLabelGenerations.Text = "Generations = " + universe.generations.ToString();
+            CellCount.Text = "Count = " + universe.liveCells.ToString();
+            timer.Stop();
+            graphicsPanel1.Invalidate();
         }
     }
 }
