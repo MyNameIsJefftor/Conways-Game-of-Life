@@ -167,5 +167,10 @@ namespace KurtisMcCammon1
         {
             this.Close();
         }
+
+        private void theGoodToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

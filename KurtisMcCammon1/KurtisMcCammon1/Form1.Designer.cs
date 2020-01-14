@@ -51,8 +51,8 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelGenerations = new System.Windows.Forms.ToolStripStatusLabel();
             this.CellCount = new System.Windows.Forms.ToolStripStatusLabel();
-            this.graphicsPanel1 = new KurtisMcCammon1.GraphicsPanel();
             this.theGoodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphicsPanel1 = new KurtisMcCammon1.GraphicsPanel();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -243,6 +243,13 @@
             this.CellCount.Size = new System.Drawing.Size(63, 17);
             this.CellCount.Text = "Cell Count";
             // 
+            // theGoodToolStripMenuItem
+            // 
+            this.theGoodToolStripMenuItem.Name = "theGoodToolStripMenuItem";
+            this.theGoodToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.theGoodToolStripMenuItem.Text = "Settings";
+            this.theGoodToolStripMenuItem.Click += new System.EventHandler(this.theGoodToolStripMenuItem_Click);
+            // 
             // graphicsPanel1
             // 
             this.graphicsPanel1.BackColor = System.Drawing.SystemColors.Window;
@@ -253,12 +260,6 @@
             this.graphicsPanel1.TabIndex = 3;
             this.graphicsPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel1_Paint);
             this.graphicsPanel1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.graphicsPanel1_MouseClick);
-            // 
-            // theGoodToolStripMenuItem
-            // 
-            this.theGoodToolStripMenuItem.Name = "theGoodToolStripMenuItem";
-            this.theGoodToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
-            this.theGoodToolStripMenuItem.Text = "The Good";
             // 
             // Form1
             // 
