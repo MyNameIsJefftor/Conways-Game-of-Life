@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace KurtisMcCammon1
 {
-    public partial class Form1 : Form
+    public partial class Game : Form
     {
         UniverseHandler universe = new UniverseHandler();
         // Drawing colors
@@ -20,7 +20,7 @@ namespace KurtisMcCammon1
         // The Timer class
         Timer timer = new Timer();
 
-        public Form1()
+        public Game()
         {
             InitializeComponent();
 
@@ -36,7 +36,7 @@ namespace KurtisMcCammon1
         private void Timer_Tick(object sender, EventArgs e)
         {
             universe.NextGeneration();
-            toolStripStatusLabelGenerations.Text = "Generations = " + universe.generations.ToString();
+            GenCount.Text = "Generations = " + universe.generations.ToString();
             graphicsPanel1.Invalidate();
         }
 
@@ -127,7 +127,7 @@ namespace KurtisMcCammon1
 
                 //count
                 universe.CellCount();
-                CellCount.Text = "Count = " + universe.liveCells.ToString();
+                _CellCount.Text = "Count = " + universe.liveCells.ToString();
                 // Tell Windows you need to repaint
                 graphicsPanel1.Invalidate();
             }
@@ -136,29 +136,29 @@ namespace KurtisMcCammon1
         private void _PlayTime(object sender, EventArgs e)
         {
             timer.Start();
-            toolStripStatusLabelGenerations.Text = "Generations = " + universe.generations.ToString();
+            GenCount.Text = "Generations = " + universe.generations.ToString();
             graphicsPanel1.Invalidate();
         }
 
         private void _PauseTime(object sender, EventArgs e)
         {
             timer.Stop();
-            toolStripStatusLabelGenerations.Text = "Generations = " + universe.generations.ToString();
+            GenCount.Text = "Generations = " + universe.generations.ToString();
             graphicsPanel1.Invalidate();
         }
 
         private void _NextGen(object sender, EventArgs e)
         {
             universe.NextGeneration();
-            toolStripStatusLabelGenerations.Text = "Generations = " + universe.generations.ToString();
+            GenCount.Text = "Generations = " + universe.generations.ToString();
             graphicsPanel1.Invalidate();
         }
 
         private void _NewFile(object sender, EventArgs e)
         {
             universe = new UniverseHandler();
-            toolStripStatusLabelGenerations.Text = "Generations = " + universe.generations.ToString();
-            CellCount.Text = "Count = " + universe.liveCells.ToString();
+            GenCount.Text = "Generations = " + universe.generations.ToString();
+            _CellCount.Text = "Count = " + universe.liveCells.ToString();
             timer.Stop();
             graphicsPanel1.Invalidate();
         }

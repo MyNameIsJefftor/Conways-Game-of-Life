@@ -18,11 +18,11 @@ namespace KurtisMcCammon1
         public int[,] neighbourCount { get; private set; }
 
         public int liveCells { get; private set; }
-
+        int temp = 30;
         public UniverseHandler()
         {
-            CellVerse = new bool[10, 10];
-            neighbourCount = new int[10, 10];
+            CellVerse = new bool[temp, temp];
+            neighbourCount = new int[temp, temp];
             generations = 0;
         }
         public void CellCount()
@@ -35,6 +35,23 @@ namespace KurtisMcCammon1
                     NeighborCheck(x, y);
                 }
             }
+        }
+        public void NextGeneration()
+        {
+            liveCells = 0;
+            bool[,] temp = CellVerse;
+            scratchPad = new bool[CellVerse.GetLength(0), CellVerse.GetLength(1)];
+            scratchPad = temp;
+            for (int y = 0; y < CellVerse.GetLength(1); y++)
+            {
+                for (int x = 0; x < CellVerse.GetLength(0); x++)
+                {
+                    VibeCheck(x, y);
+                }
+            }
+            CellVerse = scratchPad;
+            CellCount();
+            generations++;
         }
         //checks the rules and determines if the cell is alive or dead.
         private void VibeCheck(int x, int y)
@@ -112,23 +129,6 @@ namespace KurtisMcCammon1
             {
                 neighbourCount[posx, posy]++;
             }
-        }
-        public void NextGeneration()
-        {
-            liveCells = 0;
-            bool[,] temp = CellVerse;
-            scratchPad = new bool[CellVerse.GetLength(0), CellVerse.GetLength(1)];
-            scratchPad = temp;
-            for (int y = 0; y < CellVerse.GetLength(1); y++)
-            {
-                for (int x = 0; x < CellVerse.GetLength(0); x++)
-                {
-                    VibeCheck(x, y);
-                }
-            }
-            CellVerse = scratchPad;
-            CellCount();
-            generations++;
         }
     }
 }
