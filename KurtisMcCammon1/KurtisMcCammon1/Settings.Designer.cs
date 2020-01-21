@@ -33,13 +33,21 @@
             this.SettingsMenu = new System.Windows.Forms.TabControl();
             this.TimeSize = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.BirthCell_txtpre = new KurtisMcCammon1.GraphicsPanel();
+            this.DyeCell_txtpre = new KurtisMcCammon1.GraphicsPanel();
+            this.LivingCell_txtpre = new KurtisMcCammon1.GraphicsPanel();
+            this.BirthFontColor = new System.Windows.Forms.Button();
+            this.DyingFontColor = new System.Windows.Forms.Button();
+            this.LivingFontColor = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.DeadCell_pre = new KurtisMcCammon1.GraphicsPanel();
+            this.LivingCell_pre = new KurtisMcCammon1.GraphicsPanel();
+            this.DeadCellColor = new System.Windows.Forms.Button();
+            this.LivingCellColor = new System.Windows.Forms.Button();
             this.Color = new System.Windows.Forms.TabPage();
-            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.SettingsMenu.SuspendLayout();
             this.TimeSize.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -86,6 +94,12 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.BirthCell_txtpre);
+            this.groupBox2.Controls.Add(this.DyeCell_txtpre);
+            this.groupBox2.Controls.Add(this.LivingCell_txtpre);
+            this.groupBox2.Controls.Add(this.BirthFontColor);
+            this.groupBox2.Controls.Add(this.DyingFontColor);
+            this.groupBox2.Controls.Add(this.LivingFontColor);
             this.groupBox2.Location = new System.Drawing.Point(6, 162);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(415, 203);
@@ -93,16 +107,100 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Text Color";
             // 
+            // BirthCell_txtpre
+            // 
+            this.BirthCell_txtpre.Location = new System.Drawing.Point(105, 152);
+            this.BirthCell_txtpre.Name = "BirthCell_txtpre";
+            this.BirthCell_txtpre.Size = new System.Drawing.Size(23, 23);
+            this.BirthCell_txtpre.TabIndex = 3;
+            // 
+            // DyeCell_txtpre
+            // 
+            this.DyeCell_txtpre.Location = new System.Drawing.Point(105, 97);
+            this.DyeCell_txtpre.Name = "DyeCell_txtpre";
+            this.DyeCell_txtpre.Size = new System.Drawing.Size(23, 23);
+            this.DyeCell_txtpre.TabIndex = 3;
+            // 
+            // LivingCell_txtpre
+            // 
+            this.LivingCell_txtpre.Location = new System.Drawing.Point(105, 42);
+            this.LivingCell_txtpre.Name = "LivingCell_txtpre";
+            this.LivingCell_txtpre.Size = new System.Drawing.Size(23, 23);
+            this.LivingCell_txtpre.TabIndex = 3;
+            // 
+            // BirthFontColor
+            // 
+            this.BirthFontColor.Location = new System.Drawing.Point(7, 152);
+            this.BirthFontColor.Name = "BirthFontColor";
+            this.BirthFontColor.Size = new System.Drawing.Size(75, 23);
+            this.BirthFontColor.TabIndex = 2;
+            this.BirthFontColor.Text = "Birth Font";
+            this.BirthFontColor.UseVisualStyleBackColor = true;
+            // 
+            // DyingFontColor
+            // 
+            this.DyingFontColor.Location = new System.Drawing.Point(7, 97);
+            this.DyingFontColor.Name = "DyingFontColor";
+            this.DyingFontColor.Size = new System.Drawing.Size(75, 23);
+            this.DyingFontColor.TabIndex = 1;
+            this.DyingFontColor.Text = "Dying Font";
+            this.DyingFontColor.UseVisualStyleBackColor = true;
+            // 
+            // LivingFontColor
+            // 
+            this.LivingFontColor.Location = new System.Drawing.Point(7, 42);
+            this.LivingFontColor.Name = "LivingFontColor";
+            this.LivingFontColor.Size = new System.Drawing.Size(75, 23);
+            this.LivingFontColor.TabIndex = 0;
+            this.LivingFontColor.Text = "Living Cell";
+            this.LivingFontColor.UseVisualStyleBackColor = true;
+            // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.DeadCell_pre);
+            this.groupBox1.Controls.Add(this.LivingCell_pre);
+            this.groupBox1.Controls.Add(this.DeadCellColor);
+            this.groupBox1.Controls.Add(this.LivingCellColor);
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(415, 150);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cell Color";
+            // 
+            // DeadCell_pre
+            // 
+            this.DeadCell_pre.Location = new System.Drawing.Point(105, 96);
+            this.DeadCell_pre.Name = "DeadCell_pre";
+            this.DeadCell_pre.Size = new System.Drawing.Size(23, 23);
+            this.DeadCell_pre.TabIndex = 3;
+            // 
+            // LivingCell_pre
+            // 
+            this.LivingCell_pre.Location = new System.Drawing.Point(105, 35);
+            this.LivingCell_pre.Name = "LivingCell_pre";
+            this.LivingCell_pre.Size = new System.Drawing.Size(23, 23);
+            this.LivingCell_pre.TabIndex = 2;
+            this.LivingCell_pre.Paint += new System.Windows.Forms.PaintEventHandler(this.LivingCell_pre_Paint);
+            // 
+            // DeadCellColor
+            // 
+            this.DeadCellColor.Location = new System.Drawing.Point(7, 96);
+            this.DeadCellColor.Name = "DeadCellColor";
+            this.DeadCellColor.Size = new System.Drawing.Size(75, 23);
+            this.DeadCellColor.TabIndex = 1;
+            this.DeadCellColor.Text = "Dead Cell";
+            this.DeadCellColor.UseVisualStyleBackColor = true;
+            // 
+            // LivingCellColor
+            // 
+            this.LivingCellColor.Location = new System.Drawing.Point(6, 35);
+            this.LivingCellColor.Name = "LivingCellColor";
+            this.LivingCellColor.Size = new System.Drawing.Size(75, 23);
+            this.LivingCellColor.TabIndex = 0;
+            this.LivingCellColor.Text = "Living Cell";
+            this.LivingCellColor.UseVisualStyleBackColor = true;
+            this.LivingCellColor.Click += new System.EventHandler(this.LivingCellColor_Click);
             // 
             // Color
             // 
@@ -114,24 +212,6 @@
             this.Color.Text = "Time & Size";
             this.Color.UseVisualStyleBackColor = true;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(6, 35);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(7, 96);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -142,9 +222,10 @@
             this.Controls.Add(this.Cancel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "Settings";
-            this.Text = "Form2";
+            this.Text = "Settings";
             this.SettingsMenu.ResumeLayout(false);
             this.TimeSize.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -159,8 +240,15 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TabPage Color;
-        private System.Windows.Forms.ColorDialog colorDialog1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button DeadCellColor;
+        private System.Windows.Forms.Button LivingCellColor;
+        private System.Windows.Forms.Button BirthFontColor;
+        private System.Windows.Forms.Button DyingFontColor;
+        private System.Windows.Forms.Button LivingFontColor;
+        private GraphicsPanel BirthCell_txtpre;
+        private GraphicsPanel DyeCell_txtpre;
+        private GraphicsPanel LivingCell_txtpre;
+        private GraphicsPanel DeadCell_pre;
+        private GraphicsPanel LivingCell_pre;
     }
 }

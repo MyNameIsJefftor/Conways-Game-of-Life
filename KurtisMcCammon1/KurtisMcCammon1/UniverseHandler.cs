@@ -18,13 +18,21 @@ namespace KurtisMcCammon1
         public int[,] neighbourCount { get; private set; }
 
         public int liveCells { get; private set; }
-        int temp = 30;
+
         public UniverseHandler()
         {
-            CellVerse = new bool[temp, temp];
-            neighbourCount = new int[temp, temp];
+            CellVerse = new bool[10, 10];
+            neighbourCount = new int[10, 10];
             generations = 0;
         }
+
+        public UniverseHandler(int universeHeight, int universeWidth)
+        {
+            CellVerse = new bool[universeHeight, universeWidth];
+            neighbourCount = new int[universeHeight, universeWidth];
+            generations = 0;
+        }
+
         public void CellCount()
         {
             liveCells = 0;
@@ -32,7 +40,7 @@ namespace KurtisMcCammon1
             {
                 for (int x = 0; x < CellVerse.GetLength(0); x++)
                 {
-                    NeighborCheck(x, y);
+                    NeighborCheck(x, y, false);
                 }
             }
         }
@@ -76,58 +84,114 @@ namespace KurtisMcCammon1
             }
         }
         //counts the neighbors that are alive.
-        private void NeighborCheck(int x, int y)
+        private void NeighborCheck(int x, int y, bool Torod)
         {
             int posx = x; int posy = y;
-            if (CellVerse[posx, posy])
+            if (!Torod)
             {
-                liveCells++;
-            }
-            neighbourCount[posx, posy] = 0;
-            //top
-            //upleft
-            if (x - 1 >= 0 && y - 1 >= 0 && CellVerse[x - 1, y - 1])
-            {
-                neighbourCount[posx, posy]++;
-            }
-            //up
-            if (y - 1 >= 0 && CellVerse[x, y - 1])
-            {
-                neighbourCount[posx, posy]++;
-            }
-            //upright
-            if (x + 1 < CellVerse.GetLength(0) && y - 1 >= 0 && CellVerse[x + 1, y - 1])
-            {
-                neighbourCount[posx, posy]++;
-            }
+                if (CellVerse[posx, posy])
+                {
+                    liveCells++;
+                }
+                neighbourCount[posx, posy] = 0;
+                //top
+                //upleft
+                if (x - 1 >= 0 && y - 1 >= 0 && CellVerse[x - 1, y - 1])
+                {
+                    neighbourCount[posx, posy]++;
+                }
+                //up
+                if (y - 1 >= 0 && CellVerse[x, y - 1])
+                {
+                    neighbourCount[posx, posy]++;
+                }
+                //upright
+                if (x + 1 < CellVerse.GetLength(0) && y - 1 >= 0 && CellVerse[x + 1, y - 1])
+                {
+                    neighbourCount[posx, posy]++;
+                }
 
-            //middle
-            //left
-            if (x - 1 >= 0 && CellVerse[x - 1, y])
-            {
-                neighbourCount[posx, posy]++;
-            }
-            //right
-            if (x + 1 < CellVerse.GetLength(0) && CellVerse[x + 1, y])
-            {
-                neighbourCount[posx, posy]++;
-            }
+                //middle
+                //left
+                if (x - 1 >= 0 && CellVerse[x - 1, y])
+                {
+                    neighbourCount[posx, posy]++;
+                }
+                //right
+                if (x + 1 < CellVerse.GetLength(0) && CellVerse[x + 1, y])
+                {
+                    neighbourCount[posx, posy]++;
+                }
 
-            //bottom
-            //downleft
-            if (x - 1 >= 0 && y + 1 < CellVerse.GetLength(1) && CellVerse[x - 1, y + 1])
-            {
-                neighbourCount[posx, posy]++;
+                //bottom
+                //downleft
+                if (x - 1 >= 0 && y + 1 < CellVerse.GetLength(1) && CellVerse[x - 1, y + 1])
+                {
+                    neighbourCount[posx, posy]++;
+                }
+                //down
+                if (y + 1 < CellVerse.GetLength(1) && CellVerse[x, y + 1])
+                {
+                    neighbourCount[posx, posy]++;
+                }
+                //downright
+                if (x + 1 < CellVerse.GetLength(0) && y + 1 < CellVerse.GetLength(1) && CellVerse[x + 1, y + 1])
+                {
+                    neighbourCount[posx, posy]++;
+                }
             }
-            //down
-            if (y + 1 < CellVerse.GetLength(1) && CellVerse[x, y + 1])
+            else
             {
-                neighbourCount[posx, posy]++;
-            }
-            //downright
-            if (x + 1 < CellVerse.GetLength(0) && y + 1 < CellVerse.GetLength(1) && CellVerse[x + 1, y + 1])
-            {
-                neighbourCount[posx, posy]++;
+                if (CellVerse[posx, posy])
+                {
+                    liveCells++;
+                }
+                neighbourCount[posx, posy] = 0;
+                //top
+                //upleft
+                if (x - 1 >= 0 && y - 1 >= 0 && CellVerse[x - 1, y - 1])
+                {
+                    neighbourCount[posx, posy]++;
+                }
+                //up
+                if (y - 1 >= 0 && CellVerse[x, y - 1])
+                {
+                    neighbourCount[posx, posy]++;
+                }
+                //upright
+                if (x + 1 < CellVerse.GetLength(0) && y - 1 >= 0 && CellVerse[x + 1, y - 1])
+                {
+                    neighbourCount[posx, posy]++;
+                }
+
+                //middle
+                //left
+                if (x - 1 >= 0 && CellVerse[x - 1, y])
+                {
+                    neighbourCount[posx, posy]++;
+                }
+                //right
+                if (x + 1 < CellVerse.GetLength(0) && CellVerse[x + 1, y])
+                {
+                    neighbourCount[posx, posy]++;
+                }
+
+                //bottom
+                //downleft
+                if (x - 1 >= 0 && y + 1 < CellVerse.GetLength(1) && CellVerse[x - 1, y + 1])
+                {
+                    neighbourCount[posx, posy]++;
+                }
+                //down
+                if (y + 1 < CellVerse.GetLength(1) && CellVerse[x, y + 1])
+                {
+                    neighbourCount[posx, posy]++;
+                }
+                //downright
+                if (x + 1 < CellVerse.GetLength(0) && y + 1 < CellVerse.GetLength(1) && CellVerse[x + 1, y + 1])
+                {
+                    neighbourCount[posx, posy]++;
+                }
             }
         }
     }

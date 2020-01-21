@@ -1,21 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace KurtisMcCammon1
 {
     public partial class Game : Form
     {
-        UniverseHandler universe = new UniverseHandler();
+        UniverseHandler Universe;
+        UserSettings Settings = new UserSettings(Properties.Settings.Default.torofinite, Properties.Settings.Default.LivingFontColor, Properties.Settings.Default.BirthFontColor, Properties.Settings.Default.DeadFontColor, Properties.Settings.Default.DyingFontColor, Properties.Settings.Default.Background, Properties.Settings.Default.CellColor, Properties.Settings.Default.GridLines, Properties.Settings.Default.TickSpeed, Properties.Settings.Default.UniverseWidth, Properties.Settings.Default.UniverseHeight);
         // Drawing colors
-        Color gridColor = Color.Black;
-        Color cellColor = Color.Gray;
 
         // The Timer class
         Timer timer = new Timer();
@@ -24,8 +17,10 @@ namespace KurtisMcCammon1
         {
             InitializeComponent();
 
+            //Set all the settings if old settings are found
+            Universe = new UniverseHandler(Settings.UniverseHeight, Settings.UniverseWidth);
             // Setup the timer
-            timer.Interval = 100; // milliseconds
+            timer.Interval = Settings.TickSpeed; // milliseconds
             timer.Tick += Timer_Tick;
             timer.Enabled = false; // stop timer running
         }
@@ -35,8 +30,8 @@ namespace KurtisMcCammon1
         // The event called by the timer every Interval milliseconds.
         private void Timer_Tick(object sender, EventArgs e)
         {
-            universe.NextGeneration();
-            GenCount.Text = "Generations = " + universe.generations.ToString();
+            Universe.NextGeneration();
+            GenCount.Text = "Generations = " + Universe.generations.ToString();
             graphicsPanel1.Invalidate();
         }
 
@@ -45,22 +40,22 @@ namespace KurtisMcCammon1
             //FLOATS casting also use lines
             // Calculate the width and height of each cell in pixels
             // CELL WIDTH = WINDOW WIDTH / NUMBER OF CELLS IN X
-            float cellWidth = (float)graphicsPanel1.ClientSize.Width / universe.CellVerse.GetLength(0);
+            float cellWidth = (float)graphicsPanel1.ClientSize.Width / Universe.CellVerse.GetLength(0);
             // CELL HEIGHT = WINDOW HEIGHT / NUMBER OF CELLS IN Y
-            float cellHeight = (float)graphicsPanel1.ClientSize.Height / universe.CellVerse.GetLength(1);
+            float cellHeight = (float)graphicsPanel1.ClientSize.Height / Universe.CellVerse.GetLength(1);
 
             // A Pen for drawing the grid lines (color, width)
-            Pen gridPen = new Pen(gridColor, 1);
+            Pen gridPen = new Pen(Settings.GridLines, 1);
 
             // A Brush for filling living cells interiors (color)
-            Brush cellBrush = new SolidBrush(cellColor);
+            Brush cellBrush = new SolidBrush(Settings.CellColor);
 
 
             // Iterate through the universe in the y, top to bottom
-            for (int y = 0; y < universe.CellVerse.GetLength(1); y++)
+            for (int y = 0; y < Universe.CellVerse.GetLength(1); y++)
             {
                 // Iterate through the universe in the x, left to right
-                for (int x = 0; x < universe.CellVerse.GetLength(0); x++)
+                for (int x = 0; x < Universe.CellVerse.GetLength(0); x++)
                 {
                     // A rectangle to represent each cell in pixels
                     RectangleF cellRect = Rectangle.Empty;
@@ -68,39 +63,39 @@ namespace KurtisMcCammon1
                     cellRect.Y = y * cellHeight;
                     cellRect.Width = cellWidth;
                     cellRect.Height = cellHeight;
-                    Font font = new Font("Arial", 20f);
-                    //brush for text
-                    Brush text = Brushes.Green;
 
+                    Font font = new Font("Arial", (cellHeight*3/4));
+                    Brush TextColor = new SolidBrush(Settings.LivingFontColor);
 
                     StringFormat stringFormat = new StringFormat();
                     stringFormat.Alignment = StringAlignment.Center;
                     stringFormat.LineAlignment = StringAlignment.Center;
-
                     // Fill the cell with a brush if alive
-                    if (universe.CellVerse[x, y])
+                    if (Universe.CellVerse[x, y])
                     {
                         e.Graphics.FillRectangle(cellBrush, cellRect);
-                        if(universe.neighbourCount[x,y] > 3 || universe.neighbourCount[x, y] < 2)
+                        if(Universe.neighbourCount[x,y] > 3 || Universe.neighbourCount[x, y] < 2)
                         {
-                            text = Brushes.DarkRed;
+                            TextColor = new SolidBrush(Settings.DyingFontColor);
                         }
-                        e.Graphics.DrawString(universe.neighbourCount[x, y].ToString(), font, text, cellRect, stringFormat);
+                        e.Graphics.DrawString(Universe.neighbourCount[x, y].ToString(), font, TextColor, cellRect, stringFormat);
                     }
-                    else if(universe.neighbourCount[x,y] != 0 && !(universe.CellVerse[x, y]))
+
+                    else if(Universe.neighbourCount[x,y] != 0 && !(Universe.CellVerse[x, y]))
                     {
-                        text = Brushes.Gray;
-                        if(universe.neighbourCount[x, y] == 3)
+                        TextColor = new SolidBrush(Settings.DeadFontColor);
+                        if (Universe.neighbourCount[x, y] == 3)
                         {
-                            text = Brushes.Green;
+                            TextColor = new SolidBrush(Settings.BirthFontColor);
                         }
-                        e.Graphics.DrawString(universe.neighbourCount[x, y].ToString(), font, text, cellRect, stringFormat);
+                        e.Graphics.DrawString(Universe.neighbourCount[x, y].ToString(), font, TextColor, cellRect, stringFormat);
                     }
 
                     // Outline the cell with a pen
                     e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
                 }
             }
+            _CellCount.Text = "Count = " + Universe.liveCells.ToString();
 
             // Cleaning up pens and brushes
             gridPen.Dispose();
@@ -113,21 +108,22 @@ namespace KurtisMcCammon1
             if (e.Button == MouseButtons.Left)
             {
                 // Calculate the width and height of each cell in pixels
-                int cellWidth = graphicsPanel1.ClientSize.Width / universe.CellVerse.GetLength(0);
-                int cellHeight = graphicsPanel1.ClientSize.Height / universe.CellVerse.GetLength(1);
+                float cellWidth = (float)graphicsPanel1.ClientSize.Width / Universe.CellVerse.GetLength(0);
+                float cellHeight = (float)graphicsPanel1.ClientSize.Height / Universe.CellVerse.GetLength(1);
 
                 // Calculate the cell that was clicked in
                 // CELL X = MOUSE X / CELL WIDTH
-                int x = e.X / cellWidth;
+                float xt = e.X / cellWidth;
                 // CELL Y = MOUSE Y / CELL HEIGHT
-                int y = e.Y / cellHeight;
-
+                float yt = e.Y / cellHeight;
+                int x = (int)xt;
+                int y = (int)yt;
                 // Toggle the cell's state
-                universe.CellVerse[x, y] = !universe.CellVerse[x, y];
+                Universe.CellVerse[(int)x, (int)y] = !Universe.CellVerse[(int)x, (int)y];
 
                 //count
-                universe.CellCount();
-                _CellCount.Text = "Count = " + universe.liveCells.ToString();
+                Universe.CellCount();
+                _CellCount.Text = "Count = " + Universe.liveCells.ToString();
                 // Tell Windows you need to repaint
                 graphicsPanel1.Invalidate();
             }
@@ -136,29 +132,32 @@ namespace KurtisMcCammon1
         private void _PlayTime(object sender, EventArgs e)
         {
             timer.Start();
-            GenCount.Text = "Generations = " + universe.generations.ToString();
+            GenCount.Text = "Generations = " + Universe.generations.ToString();
+            _CellCount.Text = "Count = " + Universe.liveCells.ToString();
             graphicsPanel1.Invalidate();
         }
 
         private void _PauseTime(object sender, EventArgs e)
         {
             timer.Stop();
-            GenCount.Text = "Generations = " + universe.generations.ToString();
+            GenCount.Text = "Generations = " + Universe.generations.ToString();
+            _CellCount.Text = "Count = " + Universe.liveCells.ToString();
             graphicsPanel1.Invalidate();
         }
 
         private void _NextGen(object sender, EventArgs e)
         {
-            universe.NextGeneration();
-            GenCount.Text = "Generations = " + universe.generations.ToString();
+            Universe.NextGeneration();
+            GenCount.Text = "Generations = " + Universe.generations.ToString();
+            _CellCount.Text = "Count = " + Universe.liveCells.ToString();
             graphicsPanel1.Invalidate();
         }
 
         private void _NewFile(object sender, EventArgs e)
         {
-            universe = new UniverseHandler();
-            GenCount.Text = "Generations = " + universe.generations.ToString();
-            _CellCount.Text = "Count = " + universe.liveCells.ToString();
+            Universe = new UniverseHandler();
+            GenCount.Text = "Generations = " + Universe.generations.ToString();
+            _CellCount.Text = "Count = " + Universe.liveCells.ToString();
             timer.Stop();
             graphicsPanel1.Invalidate();
         }
@@ -170,7 +169,9 @@ namespace KurtisMcCammon1
 
         private void theGoodToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            Settings dlg = new Settings(ref Settings);
+            dlg.ShowDialog();
+            graphicsPanel1.Invalidate();
         }
     }
 }
