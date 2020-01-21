@@ -154,5 +154,17 @@ namespace KurtisMcCammon1.Properties {
                 this["UniverseHeight"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("69420")]
+        public int Seed {
+            get {
+                return ((int)(this["Seed"]));
+            }
+            set {
+                this["Seed"] = value;
+            }
+        }
     }
 }

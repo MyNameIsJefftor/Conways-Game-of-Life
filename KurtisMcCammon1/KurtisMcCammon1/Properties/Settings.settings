@@ -35,5 +35,8 @@
     <Setting Name="UniverseHeight" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">10</Value>
     </Setting>
+    <Setting Name="Seed" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">69420</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

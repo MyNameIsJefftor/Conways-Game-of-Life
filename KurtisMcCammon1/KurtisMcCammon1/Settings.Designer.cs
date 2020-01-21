@@ -31,8 +31,10 @@
             this.Cancel = new System.Windows.Forms.Button();
             this.Apply = new System.Windows.Forms.Button();
             this.SettingsMenu = new System.Windows.Forms.TabControl();
-            this.TimeSize = new System.Windows.Forms.TabPage();
+            this._Color = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.DeadFont_pre = new KurtisMcCammon1.GraphicsPanel();
+            this.DeadFont = new System.Windows.Forms.Button();
             this.BirthCell_txtpre = new KurtisMcCammon1.GraphicsPanel();
             this.DyeCell_txtpre = new KurtisMcCammon1.GraphicsPanel();
             this.LivingCell_txtpre = new KurtisMcCammon1.GraphicsPanel();
@@ -40,17 +42,30 @@
             this.DyingFontColor = new System.Windows.Forms.Button();
             this.LivingFontColor = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.BorderColor_pre = new KurtisMcCammon1.GraphicsPanel();
+            this.BorderColor = new System.Windows.Forms.Button();
             this.DeadCell_pre = new KurtisMcCammon1.GraphicsPanel();
             this.LivingCell_pre = new KurtisMcCammon1.GraphicsPanel();
             this.DeadCellColor = new System.Windows.Forms.Button();
             this.LivingCellColor = new System.Windows.Forms.Button();
-            this.Color = new System.Windows.Forms.TabPage();
-            this.BorderColor_pre = new KurtisMcCammon1.GraphicsPanel();
-            this.BorderColor = new System.Windows.Forms.Button();
+            this._UniverseControl = new System.Windows.Forms.TabPage();
+            this._Torodal = new System.Windows.Forms.CheckBox();
+            this._Speed = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this._SetTickSpeed = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this._SetUY = new System.Windows.Forms.Button();
+            this._SetUX = new System.Windows.Forms.Button();
+            this._UWidth = new System.Windows.Forms.NumericUpDown();
+            this._UHeight = new System.Windows.Forms.NumericUpDown();
             this.SettingsMenu.SuspendLayout();
-            this.TimeSize.SuspendLayout();
+            this._Color.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this._UniverseControl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._Speed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._UWidth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._UHeight)).BeginInit();
             this.SuspendLayout();
             // 
             // Cancel
@@ -70,11 +85,12 @@
             this.Apply.TabIndex = 1;
             this.Apply.Text = "Apply";
             this.Apply.UseVisualStyleBackColor = true;
+            this.Apply.Click += new System.EventHandler(this.Apply_Click);
             // 
             // SettingsMenu
             // 
-            this.SettingsMenu.Controls.Add(this.TimeSize);
-            this.SettingsMenu.Controls.Add(this.Color);
+            this.SettingsMenu.Controls.Add(this._Color);
+            this.SettingsMenu.Controls.Add(this._UniverseControl);
             this.SettingsMenu.Cursor = System.Windows.Forms.Cursors.Default;
             this.SettingsMenu.Location = new System.Drawing.Point(12, 12);
             this.SettingsMenu.Name = "SettingsMenu";
@@ -82,20 +98,22 @@
             this.SettingsMenu.Size = new System.Drawing.Size(423, 326);
             this.SettingsMenu.TabIndex = 2;
             // 
-            // TimeSize
+            // _Color
             // 
-            this.TimeSize.Controls.Add(this.groupBox2);
-            this.TimeSize.Controls.Add(this.groupBox1);
-            this.TimeSize.Location = new System.Drawing.Point(4, 22);
-            this.TimeSize.Name = "TimeSize";
-            this.TimeSize.Padding = new System.Windows.Forms.Padding(3);
-            this.TimeSize.Size = new System.Drawing.Size(415, 300);
-            this.TimeSize.TabIndex = 0;
-            this.TimeSize.Text = "Color";
-            this.TimeSize.UseVisualStyleBackColor = true;
+            this._Color.Controls.Add(this.groupBox2);
+            this._Color.Controls.Add(this.groupBox1);
+            this._Color.Location = new System.Drawing.Point(4, 22);
+            this._Color.Name = "_Color";
+            this._Color.Padding = new System.Windows.Forms.Padding(3);
+            this._Color.Size = new System.Drawing.Size(415, 300);
+            this._Color.TabIndex = 0;
+            this._Color.Text = "Color";
+            this._Color.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.DeadFont_pre);
+            this.groupBox2.Controls.Add(this.DeadFont);
             this.groupBox2.Controls.Add(this.BirthCell_txtpre);
             this.groupBox2.Controls.Add(this.DyeCell_txtpre);
             this.groupBox2.Controls.Add(this.LivingCell_txtpre);
@@ -108,6 +126,24 @@
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Text Color";
+            // 
+            // DeadFont_pre
+            // 
+            this.DeadFont_pre.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.DeadFont_pre.Location = new System.Drawing.Point(284, 97);
+            this.DeadFont_pre.Name = "DeadFont_pre";
+            this.DeadFont_pre.Size = new System.Drawing.Size(23, 23);
+            this.DeadFont_pre.TabIndex = 5;
+            // 
+            // DeadFont
+            // 
+            this.DeadFont.Location = new System.Drawing.Point(186, 97);
+            this.DeadFont.Name = "DeadFont";
+            this.DeadFont.Size = new System.Drawing.Size(75, 23);
+            this.DeadFont.TabIndex = 4;
+            this.DeadFont.Text = "Dead Font";
+            this.DeadFont.UseVisualStyleBackColor = true;
+            this.DeadFont.Click += new System.EventHandler(this.DeadFont_Click);
             // 
             // BirthCell_txtpre
             // 
@@ -141,6 +177,7 @@
             this.BirthFontColor.TabIndex = 2;
             this.BirthFontColor.Text = "Birth Font";
             this.BirthFontColor.UseVisualStyleBackColor = true;
+            this.BirthFontColor.Click += new System.EventHandler(this.BirthFontColor_Click);
             // 
             // DyingFontColor
             // 
@@ -150,6 +187,7 @@
             this.DyingFontColor.TabIndex = 1;
             this.DyingFontColor.Text = "Dying Font";
             this.DyingFontColor.UseVisualStyleBackColor = true;
+            this.DyingFontColor.Click += new System.EventHandler(this.DyingFontColor_Click);
             // 
             // LivingFontColor
             // 
@@ -159,6 +197,7 @@
             this.LivingFontColor.TabIndex = 0;
             this.LivingFontColor.Text = "Living Cell";
             this.LivingFontColor.UseVisualStyleBackColor = true;
+            this.LivingFontColor.Click += new System.EventHandler(this.LivingFontColor_Click);
             // 
             // groupBox1
             // 
@@ -174,6 +213,24 @@
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cell Color";
+            // 
+            // BorderColor_pre
+            // 
+            this.BorderColor_pre.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.BorderColor_pre.Location = new System.Drawing.Point(284, 35);
+            this.BorderColor_pre.Name = "BorderColor_pre";
+            this.BorderColor_pre.Size = new System.Drawing.Size(23, 23);
+            this.BorderColor_pre.TabIndex = 5;
+            // 
+            // BorderColor
+            // 
+            this.BorderColor.Location = new System.Drawing.Point(186, 35);
+            this.BorderColor.Name = "BorderColor";
+            this.BorderColor.Size = new System.Drawing.Size(75, 23);
+            this.BorderColor.TabIndex = 4;
+            this.BorderColor.Text = "Border";
+            this.BorderColor.UseVisualStyleBackColor = true;
+            this.BorderColor.Click += new System.EventHandler(this.BorderColor_Click);
             // 
             // DeadCell_pre
             // 
@@ -199,6 +256,7 @@
             this.DeadCellColor.TabIndex = 1;
             this.DeadCellColor.Text = "Dead Cell";
             this.DeadCellColor.UseVisualStyleBackColor = true;
+            this.DeadCellColor.Click += new System.EventHandler(this.DeadCellColor_Click);
             // 
             // LivingCellColor
             // 
@@ -210,32 +268,103 @@
             this.LivingCellColor.UseVisualStyleBackColor = true;
             this.LivingCellColor.Click += new System.EventHandler(this.LivingCellColor_Click);
             // 
-            // Color
+            // _UniverseControl
             // 
-            this.Color.Location = new System.Drawing.Point(4, 22);
-            this.Color.Name = "Color";
-            this.Color.Padding = new System.Windows.Forms.Padding(3);
-            this.Color.Size = new System.Drawing.Size(424, 371);
-            this.Color.TabIndex = 1;
-            this.Color.Text = "Time & Size";
-            this.Color.UseVisualStyleBackColor = true;
+            this._UniverseControl.Controls.Add(this._Torodal);
+            this._UniverseControl.Controls.Add(this._Speed);
+            this._UniverseControl.Controls.Add(this.label2);
+            this._UniverseControl.Controls.Add(this._SetTickSpeed);
+            this._UniverseControl.Controls.Add(this.label1);
+            this._UniverseControl.Controls.Add(this._SetUY);
+            this._UniverseControl.Controls.Add(this._SetUX);
+            this._UniverseControl.Controls.Add(this._UWidth);
+            this._UniverseControl.Controls.Add(this._UHeight);
+            this._UniverseControl.Location = new System.Drawing.Point(4, 22);
+            this._UniverseControl.Name = "_UniverseControl";
+            this._UniverseControl.Padding = new System.Windows.Forms.Padding(3);
+            this._UniverseControl.Size = new System.Drawing.Size(415, 300);
+            this._UniverseControl.TabIndex = 1;
+            this._UniverseControl.Text = "Universe";
+            this._UniverseControl.UseVisualStyleBackColor = true;
             // 
-            // BorderColor_pre
+            // _Torodal
             // 
-            this.BorderColor_pre.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.BorderColor_pre.Location = new System.Drawing.Point(284, 35);
-            this.BorderColor_pre.Name = "BorderColor_pre";
-            this.BorderColor_pre.Size = new System.Drawing.Size(23, 23);
-            this.BorderColor_pre.TabIndex = 5;
+            this._Torodal.AutoSize = true;
+            this._Torodal.Location = new System.Drawing.Point(9, 180);
+            this._Torodal.Name = "_Torodal";
+            this._Torodal.Size = new System.Drawing.Size(70, 17);
+            this._Torodal.TabIndex = 8;
+            this._Torodal.Text = "Toroidal?";
+            this._Torodal.UseVisualStyleBackColor = true;
             // 
-            // BorderColor
+            // _Speed
             // 
-            this.BorderColor.Location = new System.Drawing.Point(186, 35);
-            this.BorderColor.Name = "BorderColor";
-            this.BorderColor.Size = new System.Drawing.Size(75, 23);
-            this.BorderColor.TabIndex = 4;
-            this.BorderColor.Text = "Border";
-            this.BorderColor.UseVisualStyleBackColor = true;
+            this._Speed.Location = new System.Drawing.Point(96, 124);
+            this._Speed.Name = "_Speed";
+            this._Speed.Size = new System.Drawing.Size(87, 20);
+            this._Speed.TabIndex = 7;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 108);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(94, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Set the Tickspeed";
+            // 
+            // _SetTickSpeed
+            // 
+            this._SetTickSpeed.Location = new System.Drawing.Point(7, 124);
+            this._SetTickSpeed.Name = "_SetTickSpeed";
+            this._SetTickSpeed.Size = new System.Drawing.Size(75, 23);
+            this._SetTickSpeed.TabIndex = 5;
+            this._SetTickSpeed.Text = "Set";
+            this._SetTickSpeed.UseVisualStyleBackColor = true;
+            this._SetTickSpeed.Click += new System.EventHandler(this._SetTickSpeed_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(4, 13);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(172, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Set the Universe Width and Height";
+            // 
+            // _SetUY
+            // 
+            this._SetUY.Location = new System.Drawing.Point(6, 67);
+            this._SetUY.Name = "_SetUY";
+            this._SetUY.Size = new System.Drawing.Size(75, 23);
+            this._SetUY.TabIndex = 3;
+            this._SetUY.Text = "Height";
+            this._SetUY.UseVisualStyleBackColor = true;
+            this._SetUY.Click += new System.EventHandler(this._SetUY_Click);
+            // 
+            // _SetUX
+            // 
+            this._SetUX.Location = new System.Drawing.Point(6, 29);
+            this._SetUX.Name = "_SetUX";
+            this._SetUX.Size = new System.Drawing.Size(75, 23);
+            this._SetUX.TabIndex = 2;
+            this._SetUX.Text = "Width";
+            this._SetUX.UseVisualStyleBackColor = true;
+            this._SetUX.Click += new System.EventHandler(this._SetUX_Click);
+            // 
+            // _UWidth
+            // 
+            this._UWidth.Location = new System.Drawing.Point(96, 32);
+            this._UWidth.Name = "_UWidth";
+            this._UWidth.Size = new System.Drawing.Size(87, 20);
+            this._UWidth.TabIndex = 1;
+            // 
+            // _UHeight
+            // 
+            this._UHeight.Location = new System.Drawing.Point(96, 70);
+            this._UHeight.Name = "_UHeight";
+            this._UHeight.Size = new System.Drawing.Size(87, 20);
+            this._UHeight.TabIndex = 0;
             // 
             // Settings
             // 
@@ -248,10 +377,16 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "Settings";
             this.Text = "Settings";
+            this.Shown += new System.EventHandler(this.Settings_Shown);
             this.SettingsMenu.ResumeLayout(false);
-            this.TimeSize.ResumeLayout(false);
+            this._Color.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            this._UniverseControl.ResumeLayout(false);
+            this._UniverseControl.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._Speed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._UWidth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._UHeight)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -261,10 +396,10 @@
         private System.Windows.Forms.Button Cancel;
         private System.Windows.Forms.Button Apply;
         private System.Windows.Forms.TabControl SettingsMenu;
-        private System.Windows.Forms.TabPage TimeSize;
+        private System.Windows.Forms.TabPage _Color;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TabPage Color;
+        private System.Windows.Forms.TabPage _UniverseControl;
         private System.Windows.Forms.Button DeadCellColor;
         private System.Windows.Forms.Button LivingCellColor;
         private System.Windows.Forms.Button BirthFontColor;
@@ -277,5 +412,16 @@
         private GraphicsPanel LivingCell_pre;
         private GraphicsPanel BorderColor_pre;
         private System.Windows.Forms.Button BorderColor;
+        private System.Windows.Forms.NumericUpDown _UWidth;
+        private System.Windows.Forms.NumericUpDown _UHeight;
+        private System.Windows.Forms.Button _SetUY;
+        private System.Windows.Forms.Button _SetUX;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button _SetTickSpeed;
+        private System.Windows.Forms.NumericUpDown _Speed;
+        private System.Windows.Forms.CheckBox _Torodal;
+        private GraphicsPanel DeadFont_pre;
+        private System.Windows.Forms.Button DeadFont;
     }
 }

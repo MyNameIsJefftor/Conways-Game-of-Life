@@ -39,6 +39,9 @@ namespace KurtisMcCammon1
         public int UniverseWidth { get; set; }
         //height of universe
         public int UniverseHeight { get; set; }
+        
+        //Seed number
+        public int seed { get; set; }
 
         //Default settings
         public UserSettings()
@@ -57,9 +60,11 @@ namespace KurtisMcCammon1
             TickSpeed = 100;
             UniverseWidth = 10;
             UniverseHeight = 10;
+
+            seed = 69420;
         }
 
-        public UserSettings(bool toro, Color liv, Color Bir, Color Ded, Color Dye, Color Back, Color Cell, Color Grid, int tic, int Wid, int hi)
+        public UserSettings(bool toro, Color liv, Color Bir, Color Ded, Color Dye, Color Back, Color Cell, Color Grid, int tic, int Wid, int hi, int see)
         {
             torofinite = toro;
 
@@ -75,6 +80,12 @@ namespace KurtisMcCammon1
             TickSpeed = tic;
             UniverseWidth = Wid;
             UniverseHeight = hi;
+
+            seed = see;
+        }
+        public UserSettings Copy()
+        {
+            return (UserSettings)this.MemberwiseClone();
         }
     }
 }

@@ -7,7 +7,7 @@ namespace KurtisMcCammon1
     public partial class Game : Form
     {
         UniverseHandler Universe;
-        UserSettings Settings = new UserSettings(Properties.Settings.Default.torofinite, Properties.Settings.Default.LivingFontColor, Properties.Settings.Default.BirthFontColor, Properties.Settings.Default.DeadFontColor, Properties.Settings.Default.DyingFontColor, Properties.Settings.Default.Background, Properties.Settings.Default.CellColor, Properties.Settings.Default.GridLines, Properties.Settings.Default.TickSpeed, Properties.Settings.Default.UniverseWidth, Properties.Settings.Default.UniverseHeight);
+        UserSettings Settings = new UserSettings(Properties.Settings.Default.torofinite, Properties.Settings.Default.LivingFontColor, Properties.Settings.Default.BirthFontColor, Properties.Settings.Default.DeadFontColor, Properties.Settings.Default.DyingFontColor, Properties.Settings.Default.Background, Properties.Settings.Default.CellColor, Properties.Settings.Default.GridLines, Properties.Settings.Default.TickSpeed, Properties.Settings.Default.UniverseWidth, Properties.Settings.Default.UniverseHeight, Properties.Settings.Default.Seed);
         // Drawing colors
 
         // The Timer class
@@ -64,7 +64,7 @@ namespace KurtisMcCammon1
                     cellRect.Width = cellWidth;
                     cellRect.Height = cellHeight;
 
-                    Font font = new Font("Arial", (cellHeight*3/4));
+                    Font font = new Font("Arial", (cellHeight * 3 / 4));
                     Brush TextColor = new SolidBrush(Settings.LivingFontColor);
 
                     StringFormat stringFormat = new StringFormat();
@@ -74,14 +74,14 @@ namespace KurtisMcCammon1
                     if (Universe.CellVerse[x, y])
                     {
                         e.Graphics.FillRectangle(cellBrush, cellRect);
-                        if(Universe.neighbourCount[x,y] > 3 || Universe.neighbourCount[x, y] < 2)
+                        if (Universe.neighbourCount[x, y] > 3 || Universe.neighbourCount[x, y] < 2)
                         {
                             TextColor = new SolidBrush(Settings.DyingFontColor);
                         }
                         e.Graphics.DrawString(Universe.neighbourCount[x, y].ToString(), font, TextColor, cellRect, stringFormat);
                     }
 
-                    else if(Universe.neighbourCount[x,y] != 0 && !(Universe.CellVerse[x, y]))
+                    else if (Universe.neighbourCount[x, y] != 0 && !(Universe.CellVerse[x, y]))
                     {
                         TextColor = new SolidBrush(Settings.DeadFontColor);
                         if (Universe.neighbourCount[x, y] == 3)
@@ -169,8 +169,14 @@ namespace KurtisMcCammon1
 
         private void theGoodToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Settings dlg = new Settings(ref Settings);
-            dlg.ShowDialog();
+            Settings dlg = new Settings();
+            dlg.Real = Settings;
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                Settings = dlg.Temp;
+            }
+            Universe = new UniverseHandler(Settings.UniverseHeight, Settings.UniverseWidth);
+            timer.Interval = Settings.TickSpeed;
             graphicsPanel1.Invalidate();
         }
     }
