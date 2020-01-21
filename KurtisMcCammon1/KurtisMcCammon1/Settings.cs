@@ -17,7 +17,13 @@ namespace KurtisMcCammon1
         public Settings(ref UserSettings userinfo)
         {
             Real = userinfo;
+            Temp = userinfo;
             InitializeComponent();
+            LivingCell_pre.BackColor = Real.CellColor;
+            DeadCell_pre.BackColor = Real.Background;
+            LivingCell_txtpre.BackColor = Real.LivingFontColor;
+            BirthCell_txtpre.BackColor = Real.BirthFontColor;
+            DyeCell_txtpre.BackColor = Real.DyingFontColor;
         }
 
         private void LivingCellColor_Click(object sender, EventArgs e)
@@ -28,11 +34,6 @@ namespace KurtisMcCammon1
             Temp.CellColor = dlg.Color;
             LivingCell_pre.BackColor = dlg.Color;
 
-        }
-
-        private void LivingCell_pre_Paint(object sender, PaintEventArgs e)
-        {
-            
         }
     }
 }

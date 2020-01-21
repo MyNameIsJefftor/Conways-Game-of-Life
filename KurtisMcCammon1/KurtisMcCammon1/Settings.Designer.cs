@@ -45,6 +45,8 @@
             this.DeadCellColor = new System.Windows.Forms.Button();
             this.LivingCellColor = new System.Windows.Forms.Button();
             this.Color = new System.Windows.Forms.TabPage();
+            this.BorderColor_pre = new KurtisMcCammon1.GraphicsPanel();
+            this.BorderColor = new System.Windows.Forms.Button();
             this.SettingsMenu.SuspendLayout();
             this.TimeSize.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -53,7 +55,7 @@
             // 
             // Cancel
             // 
-            this.Cancel.Location = new System.Drawing.Point(360, 415);
+            this.Cancel.Location = new System.Drawing.Point(356, 340);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(75, 23);
             this.Cancel.TabIndex = 0;
@@ -62,7 +64,7 @@
             // 
             // Apply
             // 
-            this.Apply.Location = new System.Drawing.Point(279, 415);
+            this.Apply.Location = new System.Drawing.Point(275, 340);
             this.Apply.Name = "Apply";
             this.Apply.Size = new System.Drawing.Size(75, 23);
             this.Apply.TabIndex = 1;
@@ -77,7 +79,7 @@
             this.SettingsMenu.Location = new System.Drawing.Point(12, 12);
             this.SettingsMenu.Name = "SettingsMenu";
             this.SettingsMenu.SelectedIndex = 0;
-            this.SettingsMenu.Size = new System.Drawing.Size(432, 397);
+            this.SettingsMenu.Size = new System.Drawing.Size(423, 326);
             this.SettingsMenu.TabIndex = 2;
             // 
             // TimeSize
@@ -87,7 +89,7 @@
             this.TimeSize.Location = new System.Drawing.Point(4, 22);
             this.TimeSize.Name = "TimeSize";
             this.TimeSize.Padding = new System.Windows.Forms.Padding(3);
-            this.TimeSize.Size = new System.Drawing.Size(424, 371);
+            this.TimeSize.Size = new System.Drawing.Size(415, 300);
             this.TimeSize.TabIndex = 0;
             this.TimeSize.Text = "Color";
             this.TimeSize.UseVisualStyleBackColor = true;
@@ -100,22 +102,24 @@
             this.groupBox2.Controls.Add(this.BirthFontColor);
             this.groupBox2.Controls.Add(this.DyingFontColor);
             this.groupBox2.Controls.Add(this.LivingFontColor);
-            this.groupBox2.Location = new System.Drawing.Point(6, 162);
+            this.groupBox2.Location = new System.Drawing.Point(0, 150);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(415, 203);
+            this.groupBox2.Size = new System.Drawing.Size(415, 154);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Text Color";
             // 
             // BirthCell_txtpre
             // 
-            this.BirthCell_txtpre.Location = new System.Drawing.Point(105, 152);
+            this.BirthCell_txtpre.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.BirthCell_txtpre.Location = new System.Drawing.Point(284, 42);
             this.BirthCell_txtpre.Name = "BirthCell_txtpre";
             this.BirthCell_txtpre.Size = new System.Drawing.Size(23, 23);
             this.BirthCell_txtpre.TabIndex = 3;
             // 
             // DyeCell_txtpre
             // 
+            this.DyeCell_txtpre.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.DyeCell_txtpre.Location = new System.Drawing.Point(105, 97);
             this.DyeCell_txtpre.Name = "DyeCell_txtpre";
             this.DyeCell_txtpre.Size = new System.Drawing.Size(23, 23);
@@ -123,6 +127,7 @@
             // 
             // LivingCell_txtpre
             // 
+            this.LivingCell_txtpre.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.LivingCell_txtpre.Location = new System.Drawing.Point(105, 42);
             this.LivingCell_txtpre.Name = "LivingCell_txtpre";
             this.LivingCell_txtpre.Size = new System.Drawing.Size(23, 23);
@@ -130,7 +135,7 @@
             // 
             // BirthFontColor
             // 
-            this.BirthFontColor.Location = new System.Drawing.Point(7, 152);
+            this.BirthFontColor.Location = new System.Drawing.Point(186, 42);
             this.BirthFontColor.Name = "BirthFontColor";
             this.BirthFontColor.Size = new System.Drawing.Size(75, 23);
             this.BirthFontColor.TabIndex = 2;
@@ -157,19 +162,22 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.BorderColor_pre);
+            this.groupBox1.Controls.Add(this.BorderColor);
             this.groupBox1.Controls.Add(this.DeadCell_pre);
             this.groupBox1.Controls.Add(this.LivingCell_pre);
             this.groupBox1.Controls.Add(this.DeadCellColor);
             this.groupBox1.Controls.Add(this.LivingCellColor);
-            this.groupBox1.Location = new System.Drawing.Point(6, 6);
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(415, 150);
+            this.groupBox1.Size = new System.Drawing.Size(415, 156);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cell Color";
             // 
             // DeadCell_pre
             // 
+            this.DeadCell_pre.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.DeadCell_pre.Location = new System.Drawing.Point(105, 96);
             this.DeadCell_pre.Name = "DeadCell_pre";
             this.DeadCell_pre.Size = new System.Drawing.Size(23, 23);
@@ -177,11 +185,11 @@
             // 
             // LivingCell_pre
             // 
+            this.LivingCell_pre.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.LivingCell_pre.Location = new System.Drawing.Point(105, 35);
             this.LivingCell_pre.Name = "LivingCell_pre";
             this.LivingCell_pre.Size = new System.Drawing.Size(23, 23);
             this.LivingCell_pre.TabIndex = 2;
-            this.LivingCell_pre.Paint += new System.Windows.Forms.PaintEventHandler(this.LivingCell_pre_Paint);
             // 
             // DeadCellColor
             // 
@@ -212,11 +220,28 @@
             this.Color.Text = "Time & Size";
             this.Color.UseVisualStyleBackColor = true;
             // 
+            // BorderColor_pre
+            // 
+            this.BorderColor_pre.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.BorderColor_pre.Location = new System.Drawing.Point(284, 35);
+            this.BorderColor_pre.Name = "BorderColor_pre";
+            this.BorderColor_pre.Size = new System.Drawing.Size(23, 23);
+            this.BorderColor_pre.TabIndex = 5;
+            // 
+            // BorderColor
+            // 
+            this.BorderColor.Location = new System.Drawing.Point(186, 35);
+            this.BorderColor.Name = "BorderColor";
+            this.BorderColor.Size = new System.Drawing.Size(75, 23);
+            this.BorderColor.TabIndex = 4;
+            this.BorderColor.Text = "Border";
+            this.BorderColor.UseVisualStyleBackColor = true;
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(447, 450);
+            this.ClientSize = new System.Drawing.Size(445, 373);
             this.Controls.Add(this.SettingsMenu);
             this.Controls.Add(this.Apply);
             this.Controls.Add(this.Cancel);
@@ -250,5 +275,7 @@
         private GraphicsPanel LivingCell_txtpre;
         private GraphicsPanel DeadCell_pre;
         private GraphicsPanel LivingCell_pre;
+        private GraphicsPanel BorderColor_pre;
+        private System.Windows.Forms.Button BorderColor;
     }
 }
