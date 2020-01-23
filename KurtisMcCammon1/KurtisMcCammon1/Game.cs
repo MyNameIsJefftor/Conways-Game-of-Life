@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.IO;
 
 namespace KurtisMcCammon1
 {
     public partial class Game : Form
     {
         UniverseHandler Universe;
-        UserSettings Settings = new UserSettings(Properties.Settings.Default.torofinite, Properties.Settings.Default.LivingFontColor, Properties.Settings.Default.BirthFontColor, Properties.Settings.Default.DeadFontColor, Properties.Settings.Default.DyingFontColor, Properties.Settings.Default.Background, Properties.Settings.Default.CellColor, Properties.Settings.Default.GridLines, Properties.Settings.Default.TickSpeed, Properties.Settings.Default.UniverseWidth, Properties.Settings.Default.UniverseHeight, Properties.Settings.Default.Seed, Properties.Settings.Default.Grid);
-        // Drawing colors
+        UserSettings Settings = new UserSettings(Properties.Settings.Default.torofinite, Properties.Settings.Default.LivingFontColor, Properties.Settings.Default.BirthFontColor, Properties.Settings.Default.DeadFontColor, Properties.Settings.Default.DyingFontColor, Properties.Settings.Default.Background, Properties.Settings.Default.CellColor, Properties.Settings.Default.GridLines, Properties.Settings.Default.TickSpeed, Properties.Settings.Default.UniverseWidth, Properties.Settings.Default.UniverseHeight, Properties.Settings.Default.Seed, Properties.Settings.Default.Grid, Properties.Settings.Default.Neighbor);
+        UserSettings BootUpsets;
 
         // The Timer class
         Timer timer = new Timer();
@@ -19,6 +20,7 @@ namespace KurtisMcCammon1
 
             //Set all the settings if old settings are found
             Universe = new UniverseHandler(Settings.UniverseHeight, Settings.UniverseWidth);
+            BootUpsets = Settings.Copy();
             // Setup the timer
             timer.Interval = Settings.TickSpeed; // milliseconds
             timer.Tick += Timer_Tick;
@@ -37,6 +39,7 @@ namespace KurtisMcCammon1
 
         private void graphicsPanel1_Paint(object sender, PaintEventArgs e)
         {
+            graphicsPanel1.BackColor = Settings.Background;
             //FLOATS casting also use lines
             // Calculate the width and height of each cell in pixels
             // CELL WIDTH = WINDOW WIDTH / NUMBER OF CELLS IN X
@@ -74,25 +77,33 @@ namespace KurtisMcCammon1
                     if (Universe.CellVerse[x, y])
                     {
                         e.Graphics.FillRectangle(cellBrush, cellRect);
+                        //Is cell going to die next gen? Then change the brush color
                         if (Universe.neighbourCount[x, y] > 3 || Universe.neighbourCount[x, y] < 2)
                         {
                             TextColor = new SolidBrush(Settings.DyingFontColor);
                         }
-                        e.Graphics.DrawString(Universe.neighbourCount[x, y].ToString(), font, TextColor, cellRect, stringFormat);
+                        if (Settings.Neighbor)
+                        {
+                            e.Graphics.DrawString(Universe.neighbourCount[x, y].ToString(), font, TextColor, cellRect, stringFormat);
+                        }
                     }
 
                     else if (Universe.neighbourCount[x, y] != 0 && !(Universe.CellVerse[x, y]))
                     {
                         TextColor = new SolidBrush(Settings.DeadFontColor);
+                        //Is cell going to be born next gen? Then change the brush color
                         if (Universe.neighbourCount[x, y] == 3)
                         {
                             TextColor = new SolidBrush(Settings.BirthFontColor);
                         }
-                        e.Graphics.DrawString(Universe.neighbourCount[x, y].ToString(), font, TextColor, cellRect, stringFormat);
+                        if (Settings.Neighbor)
+                        {
+                            e.Graphics.DrawString(Universe.neighbourCount[x, y].ToString(), font, TextColor, cellRect, stringFormat);
+                        }
                     }
 
                     // Outline the cell with a pen
-                    if (Settings.gridon)
+                    if (Settings.Grid)
                     {
                         e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
                     }
@@ -158,7 +169,7 @@ namespace KurtisMcCammon1
 
         private void _NewFile(object sender, EventArgs e)
         {
-            Universe = new UniverseHandler();
+            Universe = new UniverseHandler(Settings.UniverseHeight, Settings.UniverseWidth);
             GenCount.Text = "Generations = " + Universe.generations.ToString();
             _CellCount.Text = "Count = " + Universe.liveCells.ToString();
             timer.Stop();
@@ -174,11 +185,21 @@ namespace KurtisMcCammon1
         {
             Settings dlg = new Settings();
             dlg.Real = Settings;
-            if (DialogResult.OK == dlg.ShowDialog())
+            int HoldHeight = Settings.UniverseHeight;
+            int HoldWidth = Settings.UniverseWidth;
+            dlg.ShowDialog();
+            if (DialogResult.OK == dlg.DialogResult)
             {
                 Settings = dlg.Temp;
-                Universe = new UniverseHandler(Settings.UniverseHeight, Settings.UniverseWidth);
                 timer.Interval = Settings.TickSpeed;
+            }
+            else if (DialogResult.Yes == dlg.DialogResult)
+            {
+                Settings = BootUpsets;
+            }
+            if (Settings.UniverseHeight != HoldHeight || Settings.UniverseWidth != HoldWidth)
+            {
+                Universe = new UniverseHandler(Settings.UniverseHeight, Settings.UniverseWidth);
             }
             graphicsPanel1.Invalidate();
         }
@@ -186,13 +207,84 @@ namespace KurtisMcCammon1
         private void timeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SeedSelection dlg = new SeedSelection();
-            dlg.Seed = Settings.seed;
+            dlg.Seed = Settings.Seed;
             if (DialogResult.OK == dlg.ShowDialog())
             {
-                Settings.seed = dlg.Seed;
+                Universe = new UniverseHandler(Settings.UniverseHeight, Settings.UniverseWidth);
+                Settings.Seed = dlg.Seed;
                 Universe.GenerateWorldSeed(dlg.Seed);
             }
             graphicsPanel1.Invalidate();
+        }
+
+        private void Game_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Properties.Settings.Default.torofinite = Settings.torofinite;
+            Properties.Settings.Default.LivingFontColor = Settings.LivingFontColor;
+            Properties.Settings.Default.BirthFontColor = Settings.BirthFontColor;
+            Properties.Settings.Default.DeadFontColor = Settings.DeadFontColor;
+            Properties.Settings.Default.DyingFontColor = Settings.DyingFontColor;
+            Properties.Settings.Default.Background = Settings.Background;
+            Properties.Settings.Default.CellColor = Settings.CellColor;
+            Properties.Settings.Default.GridLines = Settings.GridLines;
+            Properties.Settings.Default.TickSpeed = Settings.TickSpeed;
+            Properties.Settings.Default.UniverseWidth = Settings.UniverseWidth;
+            Properties.Settings.Default.UniverseHeight = Settings.UniverseHeight;
+            Properties.Settings.Default.Seed = Settings.Seed;
+            Properties.Settings.Default.Grid = Settings.Grid;
+            Properties.Settings.Default.Neighbor = Settings.Neighbor;
+
+
+            Properties.Settings.Default.Save();
+        }
+
+        private void saveToolStripButton_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.Filter = "All Files|*.*|Cells|*.cells";
+            dlg.FilterIndex = 2; dlg.DefaultExt = "cells";
+
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                StreamWriter writer = new StreamWriter(dlg.FileName);
+
+                // Prefix all comment strings with an exclamation point.
+                // It appends a CRLF for you.
+                writer.WriteLine("!This was made in Kurtis McCammon's Cellular Test Program");
+
+                // Iterate through the universe one row at a time.
+                for (int y = 0; y < Universe.CellVerse.GetLength(0); y++)
+     {
+                    // Create a string to represent the current row.
+                    String currentRow = string.Empty;
+
+                    // Iterate through the current row one cell at a time.
+                    for (int x = 0; x < Universe.CellVerse.GetLength(0); x++)
+          {
+                        // If the universe[x,y] is alive then append 'O' (capital O)
+                        // to the row string.
+                        if (Universe.CellVerse[x, y])
+                        {
+                            currentRow += "0";
+                        }
+
+                        // Else if the universe[x,y] is dead then append '.' (period)
+                        // to the row string.
+                        else
+                        {
+                            currentRow += ".";
+                        }
+                    }
+
+                    // Once the current row has been read through and the 
+                    // string constructed then write it to the file using WriteLine.
+                    writer.WriteLine(currentRow);
+                }
+
+                // After all rows and columns have been written then close the file.
+                writer.Close();
+            }
         }
     }
 }

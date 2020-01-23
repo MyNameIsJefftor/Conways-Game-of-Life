@@ -121,7 +121,8 @@ namespace KurtisMcCammon1
             _UHeight.Value = Real.UniverseHeight;
             _Speed.Value = Real.TickSpeed;
 
-            _GridOn.Checked = Real.gridon;
+            _GridOn.Checked = Real.Grid;
+            _NeighborState.Checked = Real.Neighbor;
             Temp = Real.Copy();
         }
 
@@ -131,8 +132,20 @@ namespace KurtisMcCammon1
         }
         private void Apply_Click(object sender, EventArgs e)
         {
-            Temp.gridon = _GridOn.Checked;
+            Temp.Grid = _GridOn.Checked;
+            Temp.Neighbor = _NeighborState.Checked;
             this.DialogResult = DialogResult.OK;
+        }
+
+        private void _ReloadSettings_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Yes;
+        }
+
+        private void _ResetSettings_Click(object sender, EventArgs e)
+        {
+            Temp = new UserSettings();
+            DialogResult = DialogResult.OK;
         }
     }
 }

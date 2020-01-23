@@ -60,6 +60,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.Height = new System.Windows.Forms.Label();
             this._GridOn = new System.Windows.Forms.CheckBox();
+            this._ResetSettings = new System.Windows.Forms.Button();
+            this._ReloadSettings = new System.Windows.Forms.Button();
+            this._NeighborState = new System.Windows.Forms.CheckBox();
             this.SettingsMenu.SuspendLayout();
             this._Color.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -273,6 +276,9 @@
             // 
             // _UniverseControl
             // 
+            this._UniverseControl.Controls.Add(this._NeighborState);
+            this._UniverseControl.Controls.Add(this._ReloadSettings);
+            this._UniverseControl.Controls.Add(this._ResetSettings);
             this._UniverseControl.Controls.Add(this._GridOn);
             this._UniverseControl.Controls.Add(this.Height);
             this._UniverseControl.Controls.Add(this.label3);
@@ -389,6 +395,36 @@
             this._GridOn.Text = "Grid On";
             this._GridOn.UseVisualStyleBackColor = true;
             // 
+            // _ResetSettings
+            // 
+            this._ResetSettings.Location = new System.Drawing.Point(304, 271);
+            this._ResetSettings.Name = "_ResetSettings";
+            this._ResetSettings.Size = new System.Drawing.Size(105, 23);
+            this._ResetSettings.TabIndex = 12;
+            this._ResetSettings.Text = "Reset Settings";
+            this._ResetSettings.UseVisualStyleBackColor = true;
+            this._ResetSettings.Click += new System.EventHandler(this._ResetSettings_Click);
+            // 
+            // _ReloadSettings
+            // 
+            this._ReloadSettings.Location = new System.Drawing.Point(304, 242);
+            this._ReloadSettings.Name = "_ReloadSettings";
+            this._ReloadSettings.Size = new System.Drawing.Size(105, 23);
+            this._ReloadSettings.TabIndex = 13;
+            this._ReloadSettings.Text = "Reload Settings";
+            this._ReloadSettings.UseVisualStyleBackColor = true;
+            this._ReloadSettings.Click += new System.EventHandler(this._ReloadSettings_Click);
+            // 
+            // _NeighborState
+            // 
+            this._NeighborState.AutoSize = true;
+            this._NeighborState.Location = new System.Drawing.Point(9, 226);
+            this._NeighborState.Name = "_NeighborState";
+            this._NeighborState.Size = new System.Drawing.Size(117, 17);
+            this._NeighborState.TabIndex = 14;
+            this._NeighborState.Text = "Neighbor Count On";
+            this._NeighborState.UseVisualStyleBackColor = true;
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -448,5 +484,8 @@
         private System.Windows.Forms.Label Height;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox _GridOn;
+        private System.Windows.Forms.Button _ResetSettings;
+        private System.Windows.Forms.Button _ReloadSettings;
+        private System.Windows.Forms.CheckBox _NeighborState;
     }
 }

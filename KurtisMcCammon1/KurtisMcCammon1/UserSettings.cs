@@ -41,8 +41,9 @@ namespace KurtisMcCammon1
         public int UniverseHeight { get; set; }
         
         //Seed number
-        public int seed { get; set; }
-        public bool gridon { get; set; }
+        public int Seed { get; set; }
+        public bool Grid { get; set; }
+        public bool Neighbor { get; set; }
 
         //Default settings
         public UserSettings()
@@ -55,18 +56,19 @@ namespace KurtisMcCammon1
             DyingFontColor = Color.DarkRed;
 
             Background = Color.White;
-            CellColor = Color.MediumPurple;
-            GridLines = Color.Orange;
+            CellColor = Color.DarkGray;
+            GridLines = Color.Black;
 
             TickSpeed = 100;
             UniverseWidth = 10;
             UniverseHeight = 10;
 
-            seed = 69420;
-            gridon = true;
+            Seed = 69420;
+            Grid = true;
+            Neighbor = true;
         }
 
-        public UserSettings(bool toro, Color liv, Color Bir, Color Ded, Color Dye, Color Back, Color Cell, Color Grid, int tic, int Wid, int hi, int see, bool gridState)
+        public UserSettings(bool toro, Color liv, Color Bir, Color Ded, Color Dye, Color Back, Color Cell, Color GridColor, int tic, int Wid, int hi, int see, bool gridState, bool neighborState)
         {
             torofinite = toro;
 
@@ -77,14 +79,15 @@ namespace KurtisMcCammon1
 
             Background = Back;
             CellColor = Cell;
-            GridLines = Grid;
+            GridLines = GridColor;
 
             TickSpeed = tic;
             UniverseWidth = Wid;
             UniverseHeight = hi;
 
-            seed = see;
-            gridon = gridState;
+            Seed = see;
+            Grid = gridState;
+            Neighbor = neighborState;
         }
         public UserSettings Copy()
         {

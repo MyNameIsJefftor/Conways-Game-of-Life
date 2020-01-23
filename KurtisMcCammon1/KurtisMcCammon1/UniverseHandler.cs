@@ -197,6 +197,7 @@ namespace KurtisMcCammon1
 
         public void GenerateWorldSeed(int seed)
         {
+            generations = 0;
             Random Temp = new Random(seed);
             for (int y = 0; y < CellVerse.GetLength(1); y++)
             {

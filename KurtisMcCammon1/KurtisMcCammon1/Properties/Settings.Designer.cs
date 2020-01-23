@@ -178,5 +178,17 @@ namespace KurtisMcCammon1.Properties {
                 this["Grid"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Neighbor {
+            get {
+                return ((bool)(this["Neighbor"]));
+            }
+            set {
+                this["Neighbor"] = value;
+            }
+        }
     }
 }
