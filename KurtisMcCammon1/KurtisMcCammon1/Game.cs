@@ -7,7 +7,7 @@ namespace KurtisMcCammon1
     public partial class Game : Form
     {
         UniverseHandler Universe;
-        UserSettings Settings = new UserSettings(Properties.Settings.Default.torofinite, Properties.Settings.Default.LivingFontColor, Properties.Settings.Default.BirthFontColor, Properties.Settings.Default.DeadFontColor, Properties.Settings.Default.DyingFontColor, Properties.Settings.Default.Background, Properties.Settings.Default.CellColor, Properties.Settings.Default.GridLines, Properties.Settings.Default.TickSpeed, Properties.Settings.Default.UniverseWidth, Properties.Settings.Default.UniverseHeight, Properties.Settings.Default.Seed);
+        UserSettings Settings = new UserSettings(Properties.Settings.Default.torofinite, Properties.Settings.Default.LivingFontColor, Properties.Settings.Default.BirthFontColor, Properties.Settings.Default.DeadFontColor, Properties.Settings.Default.DyingFontColor, Properties.Settings.Default.Background, Properties.Settings.Default.CellColor, Properties.Settings.Default.GridLines, Properties.Settings.Default.TickSpeed, Properties.Settings.Default.UniverseWidth, Properties.Settings.Default.UniverseHeight, Properties.Settings.Default.Seed, Properties.Settings.Default.Grid);
         // Drawing colors
 
         // The Timer class
@@ -92,7 +92,10 @@ namespace KurtisMcCammon1
                     }
 
                     // Outline the cell with a pen
-                    e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
+                    if (Settings.gridon)
+                    {
+                        e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
+                    }
                 }
             }
             _CellCount.Text = "Count = " + Universe.liveCells.ToString();
@@ -174,9 +177,21 @@ namespace KurtisMcCammon1
             if (DialogResult.OK == dlg.ShowDialog())
             {
                 Settings = dlg.Temp;
+                Universe = new UniverseHandler(Settings.UniverseHeight, Settings.UniverseWidth);
+                timer.Interval = Settings.TickSpeed;
             }
-            Universe = new UniverseHandler(Settings.UniverseHeight, Settings.UniverseWidth);
-            timer.Interval = Settings.TickSpeed;
+            graphicsPanel1.Invalidate();
+        }
+
+        private void timeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SeedSelection dlg = new SeedSelection();
+            dlg.Seed = Settings.seed;
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                Settings.seed = dlg.Seed;
+                Universe.GenerateWorldSeed(dlg.Seed);
+            }
             graphicsPanel1.Invalidate();
         }
     }

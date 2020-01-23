@@ -55,9 +55,11 @@
             this._SetTickSpeed = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this._SetUY = new System.Windows.Forms.Button();
-            this._SetUX = new System.Windows.Forms.Button();
             this._UWidth = new System.Windows.Forms.NumericUpDown();
             this._UHeight = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
+            this.Height = new System.Windows.Forms.Label();
+            this._GridOn = new System.Windows.Forms.CheckBox();
             this.SettingsMenu.SuspendLayout();
             this._Color.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -76,6 +78,7 @@
             this.Cancel.TabIndex = 0;
             this.Cancel.Text = "Cancel";
             this.Cancel.UseVisualStyleBackColor = true;
+            this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
             // 
             // Apply
             // 
@@ -270,13 +273,15 @@
             // 
             // _UniverseControl
             // 
+            this._UniverseControl.Controls.Add(this._GridOn);
+            this._UniverseControl.Controls.Add(this.Height);
+            this._UniverseControl.Controls.Add(this.label3);
             this._UniverseControl.Controls.Add(this._Torodal);
             this._UniverseControl.Controls.Add(this._Speed);
             this._UniverseControl.Controls.Add(this.label2);
             this._UniverseControl.Controls.Add(this._SetTickSpeed);
             this._UniverseControl.Controls.Add(this.label1);
             this._UniverseControl.Controls.Add(this._SetUY);
-            this._UniverseControl.Controls.Add(this._SetUX);
             this._UniverseControl.Controls.Add(this._UWidth);
             this._UniverseControl.Controls.Add(this._UHeight);
             this._UniverseControl.Location = new System.Drawing.Point(4, 22);
@@ -309,9 +314,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(6, 108);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(94, 13);
+            this.label2.Size = new System.Drawing.Size(176, 13);
             this.label2.TabIndex = 6;
-            this.label2.Text = "Set the Tickspeed";
+            this.label2.Text = "Set the Tickspeed ( in milliseconds )";
             // 
             // _SetTickSpeed
             // 
@@ -338,33 +343,51 @@
             this._SetUY.Name = "_SetUY";
             this._SetUY.Size = new System.Drawing.Size(75, 23);
             this._SetUY.TabIndex = 3;
-            this._SetUY.Text = "Height";
+            this._SetUY.Text = "Set";
             this._SetUY.UseVisualStyleBackColor = true;
-            this._SetUY.Click += new System.EventHandler(this._SetUY_Click);
-            // 
-            // _SetUX
-            // 
-            this._SetUX.Location = new System.Drawing.Point(6, 29);
-            this._SetUX.Name = "_SetUX";
-            this._SetUX.Size = new System.Drawing.Size(75, 23);
-            this._SetUX.TabIndex = 2;
-            this._SetUX.Text = "Width";
-            this._SetUX.UseVisualStyleBackColor = true;
-            this._SetUX.Click += new System.EventHandler(this._SetUX_Click);
+            this._SetUY.Click += new System.EventHandler(this._SetUniverse);
             // 
             // _UWidth
             // 
-            this._UWidth.Location = new System.Drawing.Point(96, 32);
+            this._UWidth.Location = new System.Drawing.Point(6, 45);
             this._UWidth.Name = "_UWidth";
             this._UWidth.Size = new System.Drawing.Size(87, 20);
             this._UWidth.TabIndex = 1;
             // 
             // _UHeight
             // 
-            this._UHeight.Location = new System.Drawing.Point(96, 70);
+            this._UHeight.Location = new System.Drawing.Point(99, 45);
             this._UHeight.Name = "_UHeight";
             this._UHeight.Size = new System.Drawing.Size(87, 20);
             this._UHeight.TabIndex = 0;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 29);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(38, 13);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Height";
+            // 
+            // Height
+            // 
+            this.Height.AutoSize = true;
+            this.Height.Location = new System.Drawing.Point(96, 29);
+            this.Height.Name = "Height";
+            this.Height.Size = new System.Drawing.Size(35, 13);
+            this.Height.TabIndex = 10;
+            this.Height.Text = "Width";
+            // 
+            // _GridOn
+            // 
+            this._GridOn.AutoSize = true;
+            this._GridOn.Location = new System.Drawing.Point(9, 203);
+            this._GridOn.Name = "_GridOn";
+            this._GridOn.Size = new System.Drawing.Size(62, 17);
+            this._GridOn.TabIndex = 11;
+            this._GridOn.Text = "Grid On";
+            this._GridOn.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -415,7 +438,6 @@
         private System.Windows.Forms.NumericUpDown _UWidth;
         private System.Windows.Forms.NumericUpDown _UHeight;
         private System.Windows.Forms.Button _SetUY;
-        private System.Windows.Forms.Button _SetUX;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button _SetTickSpeed;
@@ -423,5 +445,8 @@
         private System.Windows.Forms.CheckBox _Torodal;
         private GraphicsPanel DeadFont_pre;
         private System.Windows.Forms.Button DeadFont;
+        private System.Windows.Forms.Label Height;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox _GridOn;
     }
 }

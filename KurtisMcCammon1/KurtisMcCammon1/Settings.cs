@@ -96,23 +96,14 @@ namespace KurtisMcCammon1
             }
         }
 
-        private void _SetUX_Click(object sender, EventArgs e)
+        private void _SetUniverse(object sender, EventArgs e)
         {
             Temp.UniverseWidth = (int)_UWidth.Value;
-        }
-
-        private void _SetUY_Click(object sender, EventArgs e)
-        {
             Temp.UniverseHeight = (int)_UHeight.Value;
         }
         private void _SetTickSpeed_Click(object sender, EventArgs e)
         {
             Temp.TickSpeed = (int)_Speed.Value;
-        }
-
-        private void Apply_Click(object sender, EventArgs e)
-        {
-            this.DialogResult = DialogResult.OK;
         }
 
         private void Settings_Shown(object sender, EventArgs e)
@@ -129,8 +120,19 @@ namespace KurtisMcCammon1
             _UWidth.Value = Real.UniverseWidth;
             _UHeight.Value = Real.UniverseHeight;
             _Speed.Value = Real.TickSpeed;
+
+            _GridOn.Checked = Real.gridon;
             Temp = Real.Copy();
         }
 
+        private void Cancel_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+        }
+        private void Apply_Click(object sender, EventArgs e)
+        {
+            Temp.gridon = _GridOn.Checked;
+            this.DialogResult = DialogResult.OK;
+        }
     }
 }

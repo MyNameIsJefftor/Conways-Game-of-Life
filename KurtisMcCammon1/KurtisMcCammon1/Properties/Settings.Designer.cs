@@ -166,5 +166,17 @@ namespace KurtisMcCammon1.Properties {
                 this["Seed"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Grid {
+            get {
+                return ((bool)(this["Grid"]));
+            }
+            set {
+                this["Grid"] = value;
+            }
+        }
     }
 }

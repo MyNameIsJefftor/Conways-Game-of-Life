@@ -194,5 +194,25 @@ namespace KurtisMcCammon1
                 }
             }
         }
+
+        public void GenerateWorldSeed(int seed)
+        {
+            Random Temp = new Random(seed);
+            for (int y = 0; y < CellVerse.GetLength(1); y++)
+            {
+                for (int x = 0; x < CellVerse.GetLength(0); x++)
+                {
+                    if ((seed * Temp.Next()) % 5 == 0)
+                    {
+                        CellVerse[x, y] = true;
+                    }
+                    else
+                    {
+                        CellVerse[x, y] = false;
+                    }
+                }
+            }
+            CellCount();
+        }
     }
 }

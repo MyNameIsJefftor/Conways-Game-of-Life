@@ -58,6 +58,12 @@
     <Compile Include="Game.Designer.cs">
       <DependentUpon>Game.cs</DependentUpon>
     </Compile>
+    <Compile Include="SeedSelection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SeedSelection.Designer.cs">
+      <DependentUpon>SeedSelection.cs</DependentUpon>
+    </Compile>
     <Compile Include="Settings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,6 +90,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="SeedSelection.resx">
+      <DependentUpon>SeedSelection.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
     </EmbeddedResource>

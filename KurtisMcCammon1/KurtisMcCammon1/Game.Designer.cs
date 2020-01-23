@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Game));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,17 +55,23 @@
             this._CellCount = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelGenerations = new System.Windows.Forms.ToolStripStatusLabel();
             this.CellCount = new System.Windows.Forms.ToolStripStatusLabel();
+            this.timeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.seedTheUniverseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.graphicsPanel1 = new KurtisMcCammon1.GraphicsPanel();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.theGoodToolStripMenuItem});
+            this.theGoodToolStripMenuItem,
+            this.timeToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(573, 24);
@@ -268,9 +275,39 @@
             this.CellCount.Size = new System.Drawing.Size(63, 17);
             this.CellCount.Text = "Cell Count";
             // 
+            // timeToolStripMenuItem
+            // 
+            this.timeToolStripMenuItem.Name = "timeToolStripMenuItem";
+            this.timeToolStripMenuItem.Size = new System.Drawing.Size(112, 20);
+            this.timeToolStripMenuItem.Text = "Seed the Universe";
+            this.timeToolStripMenuItem.Click += new System.EventHandler(this.timeToolStripMenuItem_Click);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.settingsToolStripMenuItem,
+            this.seedTheUniverseToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(168, 48);
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.theGoodToolStripMenuItem_Click);
+            // 
+            // seedTheUniverseToolStripMenuItem
+            // 
+            this.seedTheUniverseToolStripMenuItem.Name = "seedTheUniverseToolStripMenuItem";
+            this.seedTheUniverseToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.seedTheUniverseToolStripMenuItem.Text = "Seed the Universe";
+            this.seedTheUniverseToolStripMenuItem.Click += new System.EventHandler(this.timeToolStripMenuItem_Click);
+            // 
             // graphicsPanel1
             // 
             this.graphicsPanel1.BackColor = System.Drawing.SystemColors.Window;
+            this.graphicsPanel1.ContextMenuStrip = this.contextMenuStrip1;
             this.graphicsPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.graphicsPanel1.Location = new System.Drawing.Point(0, 49);
             this.graphicsPanel1.Name = "graphicsPanel1";
@@ -297,6 +334,7 @@
             this.toolStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -330,6 +368,10 @@
         private System.Windows.Forms.ToolStripMenuItem theGoodToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel GenCount;
         private System.Windows.Forms.ToolStripStatusLabel _CellCount;
+        private System.Windows.Forms.ToolStripMenuItem timeToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem seedTheUniverseToolStripMenuItem;
     }
 }
 

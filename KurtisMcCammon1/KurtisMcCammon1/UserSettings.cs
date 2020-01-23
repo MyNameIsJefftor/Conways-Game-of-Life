@@ -42,6 +42,7 @@ namespace KurtisMcCammon1
         
         //Seed number
         public int seed { get; set; }
+        public bool gridon { get; set; }
 
         //Default settings
         public UserSettings()
@@ -62,9 +63,10 @@ namespace KurtisMcCammon1
             UniverseHeight = 10;
 
             seed = 69420;
+            gridon = true;
         }
 
-        public UserSettings(bool toro, Color liv, Color Bir, Color Ded, Color Dye, Color Back, Color Cell, Color Grid, int tic, int Wid, int hi, int see)
+        public UserSettings(bool toro, Color liv, Color Bir, Color Ded, Color Dye, Color Back, Color Cell, Color Grid, int tic, int Wid, int hi, int see, bool gridState)
         {
             torofinite = toro;
 
@@ -82,6 +84,7 @@ namespace KurtisMcCammon1
             UniverseHeight = hi;
 
             seed = see;
+            gridon = gridState;
         }
         public UserSettings Copy()
         {
