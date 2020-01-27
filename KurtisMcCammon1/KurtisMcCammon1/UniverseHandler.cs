@@ -33,18 +33,18 @@ namespace KurtisMcCammon1
             generations = 0;
         }
 
-        public void CellCount()
+        public void CellCount(bool toroid)
         {
             liveCells = 0;
             for (int y = 0; y < CellVerse.GetLength(1); y++)
             {
                 for (int x = 0; x < CellVerse.GetLength(0); x++)
                 {
-                    NeighborCheck(x, y, false);
+                    NeighborCheck(x, y, toroid);
                 }
             }
         }
-        public void NextGeneration()
+        public void NextGeneration(bool toroid)
         {
             liveCells = 0;
             bool[,] temp = CellVerse;
@@ -58,7 +58,7 @@ namespace KurtisMcCammon1
                 }
             }
             CellVerse = scratchPad;
-            CellCount();
+            CellCount(toroid);
             generations++;
         }
         //checks the rules and determines if the cell is alive or dead.
@@ -86,7 +86,8 @@ namespace KurtisMcCammon1
         //counts the neighbors that are alive.
         private void NeighborCheck(int x, int y, bool Torod)
         {
-            int posx = x; int posy = y;
+            int posx = -1;
+            int posy = -1;
             if (!Torod)
             {
                 if (CellVerse[posx, posy])
@@ -142,60 +143,152 @@ namespace KurtisMcCammon1
             }
             else
             {
-                if (CellVerse[posx, posy])
+                if (CellVerse[x, y])
                 {
                     liveCells++;
                 }
-                neighbourCount[posx, posy] = 0;
+                if (x + 1 >= CellVerse.GetLength(0))
+                {
+                    posx = 0;
+                }
+                else if (x - 1 < 0)
+                {
+                    posx = CellVerse.GetLength(0) - 1;
+                }
+                if (y + 1 >= CellVerse.GetLength(1))
+                {
+                    posy = 0;
+                }
+                else if (y - 1 < 0)
+                {
+                    posy = CellVerse.GetLength(1) - 1;
+                }
+                neighbourCount[x, y] = 0;
                 //top
                 //upleft
                 if (x - 1 >= 0 && y - 1 >= 0 && CellVerse[x - 1, y - 1])
                 {
-                    neighbourCount[posx, posy]++;
+                    neighbourCount[x, y]++;
+                }
+                //overflows both
+                else if (posx == CellVerse.GetLength(0) - 1 && posy == CellVerse.GetLength(1) - 1 && CellVerse[posx, posy])
+                {
+                    neighbourCount[x, y]++;
+                }
+                //overflows up
+                else if (x - 1 >= 0 && posy == CellVerse.GetLength(1) - 1 && CellVerse[x-1, posy])
+                {
+                    neighbourCount[x, y]++;
+                }
+                //overflows left
+                else if (posx == CellVerse.GetLength(0) - 1 && y - 1 >= 0 && CellVerse[posx, y - 1])
+                {
+                    neighbourCount[x, y]++;
                 }
                 //up
                 if (y - 1 >= 0 && CellVerse[x, y - 1])
                 {
-                    neighbourCount[posx, posy]++;
+                    neighbourCount[x, y]++;
+                }
+                //overflows up
+                else if (posy == CellVerse.GetLength(1) - 1 && CellVerse[x, posy])
+                {
+                    neighbourCount[x, y]++;
                 }
                 //upright
                 if (x + 1 < CellVerse.GetLength(0) && y - 1 >= 0 && CellVerse[x + 1, y - 1])
                 {
-                    neighbourCount[posx, posy]++;
+                    neighbourCount[x, y]++;
+                }
+                //overflows both
+                else if (posx == 0 && posy == CellVerse.GetLength(1) - 1 && CellVerse[posx, posy])
+                {
+                    neighbourCount[x, y]++;
+                }
+                //overflows up
+                else if (x + 1 < CellVerse.GetLength(0) && posy == CellVerse.GetLength(1) - 1 && CellVerse[x + 1, posy])
+                {
+                    neighbourCount[x, y]++;
+                }
+                //overflows right
+                else if (posx == 0 && y - 1 >= 0 && CellVerse[posx, y - 1])
+                {
+                    neighbourCount[x, y]++;
                 }
 
                 //middle
                 //left
                 if (x - 1 >= 0 && CellVerse[x - 1, y])
                 {
-                    neighbourCount[posx, posy]++;
+                    neighbourCount[x, y]++;
+                }
+                else if (posx == CellVerse.GetLength(0) - 1 && CellVerse[posx, y])
+                {
+                    neighbourCount[x, y]++;
                 }
                 //right
                 if (x + 1 < CellVerse.GetLength(0) && CellVerse[x + 1, y])
                 {
-                    neighbourCount[posx, posy]++;
+                    neighbourCount[x, y]++;
                 }
-
+                else if (posx == 0 && CellVerse[posx, y])
+                {
+                    neighbourCount[x, y]++;
+                }
                 //bottom
                 //downleft
                 if (x - 1 >= 0 && y + 1 < CellVerse.GetLength(1) && CellVerse[x - 1, y + 1])
                 {
-                    neighbourCount[posx, posy]++;
+                    neighbourCount[x, y]++;
+                }
+                //overflows both
+                else if (posx == CellVerse.GetLength(0) - 1 && posy == 0 && CellVerse[posx, posy])
+                {
+                    neighbourCount[x, y]++;
+                }
+                //overflows down
+                else if (x - 1 >= 0 && posy == 0  && CellVerse[x - 1, posy])
+                {
+                    neighbourCount[x, y]++;
+                }
+                //overflows left
+                else if (posx == CellVerse.GetLength(0) - 1 && y + 1 < CellVerse.GetLength(1) && CellVerse[posx, y + 1])
+                {
+                    neighbourCount[x, y]++;
                 }
                 //down
                 if (y + 1 < CellVerse.GetLength(1) && CellVerse[x, y + 1])
                 {
-                    neighbourCount[posx, posy]++;
+                    neighbourCount[x, y]++;
+                }
+                //overflows down
+                else if (posy == 0 && CellVerse[x, posy])
+                {
+                    neighbourCount[x, y]++;
                 }
                 //downright
                 if (x + 1 < CellVerse.GetLength(0) && y + 1 < CellVerse.GetLength(1) && CellVerse[x + 1, y + 1])
                 {
-                    neighbourCount[posx, posy]++;
+                    neighbourCount[x, y]++;
+                }
+                //overflows both
+                else if (posx == 0 && posy == 0 && CellVerse[posx, posy])
+                {
+                    neighbourCount[x, y]++;
+                }
+                //overflows down
+                else if (x + 1 < CellVerse.GetLength(0) && posy == 0 && CellVerse[x + 1, posy])
+                {
+                    neighbourCount[x, y]++;
+                }
+                //overflows right
+                else if (posx == 0 && y + 1 < CellVerse.GetLength(1) && CellVerse[posx, y + 1])
+                {
+                    neighbourCount[x, y]++;
                 }
             }
         }
-
-        public void GenerateWorldSeed(int seed)
+        public void GenerateWorldSeed(int seed, bool toroid)
         {
             generations = 0;
             Random Temp = new Random(seed);
@@ -203,7 +296,7 @@ namespace KurtisMcCammon1
             {
                 for (int x = 0; x < CellVerse.GetLength(0); x++)
                 {
-                    if ((seed * Temp.Next()) % 5 == 0)
+                    if ((seed * Temp.Next()) % 3 == 0)
                     {
                         CellVerse[x, y] = true;
                     }
@@ -213,7 +306,11 @@ namespace KurtisMcCammon1
                     }
                 }
             }
-            CellCount();
+            CellCount(toroid);
+        }
+        public UniverseHandler Copy()
+        {
+            return (UniverseHandler)this.MemberwiseClone();
         }
     }
 }

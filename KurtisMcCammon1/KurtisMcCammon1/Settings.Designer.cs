@@ -49,7 +49,13 @@
             this.DeadCellColor = new System.Windows.Forms.Button();
             this.LivingCellColor = new System.Windows.Forms.Button();
             this._UniverseControl = new System.Windows.Forms.TabPage();
-            this._Torodal = new System.Windows.Forms.CheckBox();
+            this._NeighborState = new System.Windows.Forms.CheckBox();
+            this._ReloadSettings = new System.Windows.Forms.Button();
+            this._ResetSettings = new System.Windows.Forms.Button();
+            this._GridOn = new System.Windows.Forms.CheckBox();
+            this.Height = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this._Toroidal = new System.Windows.Forms.CheckBox();
             this._Speed = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this._SetTickSpeed = new System.Windows.Forms.Button();
@@ -57,12 +63,6 @@
             this._SetUY = new System.Windows.Forms.Button();
             this._UWidth = new System.Windows.Forms.NumericUpDown();
             this._UHeight = new System.Windows.Forms.NumericUpDown();
-            this.label3 = new System.Windows.Forms.Label();
-            this.Height = new System.Windows.Forms.Label();
-            this._GridOn = new System.Windows.Forms.CheckBox();
-            this._ResetSettings = new System.Windows.Forms.Button();
-            this._ReloadSettings = new System.Windows.Forms.Button();
-            this._NeighborState = new System.Windows.Forms.CheckBox();
             this.SettingsMenu.SuspendLayout();
             this._Color.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -282,7 +282,7 @@
             this._UniverseControl.Controls.Add(this._GridOn);
             this._UniverseControl.Controls.Add(this.Height);
             this._UniverseControl.Controls.Add(this.label3);
-            this._UniverseControl.Controls.Add(this._Torodal);
+            this._UniverseControl.Controls.Add(this._Toroidal);
             this._UniverseControl.Controls.Add(this._Speed);
             this._UniverseControl.Controls.Add(this.label2);
             this._UniverseControl.Controls.Add(this._SetTickSpeed);
@@ -298,19 +298,82 @@
             this._UniverseControl.Text = "Universe";
             this._UniverseControl.UseVisualStyleBackColor = true;
             // 
-            // _Torodal
+            // _NeighborState
             // 
-            this._Torodal.AutoSize = true;
-            this._Torodal.Location = new System.Drawing.Point(9, 180);
-            this._Torodal.Name = "_Torodal";
-            this._Torodal.Size = new System.Drawing.Size(70, 17);
-            this._Torodal.TabIndex = 8;
-            this._Torodal.Text = "Toroidal?";
-            this._Torodal.UseVisualStyleBackColor = true;
+            this._NeighborState.AutoSize = true;
+            this._NeighborState.Location = new System.Drawing.Point(9, 226);
+            this._NeighborState.Name = "_NeighborState";
+            this._NeighborState.Size = new System.Drawing.Size(117, 17);
+            this._NeighborState.TabIndex = 14;
+            this._NeighborState.Text = "Neighbor Count On";
+            this._NeighborState.UseVisualStyleBackColor = true;
+            // 
+            // _ReloadSettings
+            // 
+            this._ReloadSettings.Location = new System.Drawing.Point(304, 242);
+            this._ReloadSettings.Name = "_ReloadSettings";
+            this._ReloadSettings.Size = new System.Drawing.Size(105, 23);
+            this._ReloadSettings.TabIndex = 13;
+            this._ReloadSettings.Text = "Reload Settings";
+            this._ReloadSettings.UseVisualStyleBackColor = true;
+            this._ReloadSettings.Click += new System.EventHandler(this._ReloadSettings_Click);
+            // 
+            // _ResetSettings
+            // 
+            this._ResetSettings.Location = new System.Drawing.Point(304, 271);
+            this._ResetSettings.Name = "_ResetSettings";
+            this._ResetSettings.Size = new System.Drawing.Size(105, 23);
+            this._ResetSettings.TabIndex = 12;
+            this._ResetSettings.Text = "Reset Settings";
+            this._ResetSettings.UseVisualStyleBackColor = true;
+            this._ResetSettings.Click += new System.EventHandler(this._ResetSettings_Click);
+            // 
+            // _GridOn
+            // 
+            this._GridOn.AutoSize = true;
+            this._GridOn.Location = new System.Drawing.Point(9, 203);
+            this._GridOn.Name = "_GridOn";
+            this._GridOn.Size = new System.Drawing.Size(62, 17);
+            this._GridOn.TabIndex = 11;
+            this._GridOn.Text = "Grid On";
+            this._GridOn.UseVisualStyleBackColor = true;
+            // 
+            // Height
+            // 
+            this.Height.AutoSize = true;
+            this.Height.Location = new System.Drawing.Point(96, 29);
+            this.Height.Name = "Height";
+            this.Height.Size = new System.Drawing.Size(35, 13);
+            this.Height.TabIndex = 10;
+            this.Height.Text = "Width";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 29);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(38, 13);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Height";
+            // 
+            // _Toroidal
+            // 
+            this._Toroidal.AutoSize = true;
+            this._Toroidal.Location = new System.Drawing.Point(9, 180);
+            this._Toroidal.Name = "_Toroidal";
+            this._Toroidal.Size = new System.Drawing.Size(70, 17);
+            this._Toroidal.TabIndex = 8;
+            this._Toroidal.Text = "Toroidal?";
+            this._Toroidal.UseVisualStyleBackColor = true;
             // 
             // _Speed
             // 
             this._Speed.Location = new System.Drawing.Point(96, 124);
+            this._Speed.Maximum = new decimal(new int[] {
+            -1474836480,
+            4,
+            0,
+            0});
             this._Speed.Name = "_Speed";
             this._Speed.Size = new System.Drawing.Size(87, 20);
             this._Speed.TabIndex = 7;
@@ -367,64 +430,6 @@
             this._UHeight.Size = new System.Drawing.Size(87, 20);
             this._UHeight.TabIndex = 0;
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 29);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(38, 13);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Height";
-            // 
-            // Height
-            // 
-            this.Height.AutoSize = true;
-            this.Height.Location = new System.Drawing.Point(96, 29);
-            this.Height.Name = "Height";
-            this.Height.Size = new System.Drawing.Size(35, 13);
-            this.Height.TabIndex = 10;
-            this.Height.Text = "Width";
-            // 
-            // _GridOn
-            // 
-            this._GridOn.AutoSize = true;
-            this._GridOn.Location = new System.Drawing.Point(9, 203);
-            this._GridOn.Name = "_GridOn";
-            this._GridOn.Size = new System.Drawing.Size(62, 17);
-            this._GridOn.TabIndex = 11;
-            this._GridOn.Text = "Grid On";
-            this._GridOn.UseVisualStyleBackColor = true;
-            // 
-            // _ResetSettings
-            // 
-            this._ResetSettings.Location = new System.Drawing.Point(304, 271);
-            this._ResetSettings.Name = "_ResetSettings";
-            this._ResetSettings.Size = new System.Drawing.Size(105, 23);
-            this._ResetSettings.TabIndex = 12;
-            this._ResetSettings.Text = "Reset Settings";
-            this._ResetSettings.UseVisualStyleBackColor = true;
-            this._ResetSettings.Click += new System.EventHandler(this._ResetSettings_Click);
-            // 
-            // _ReloadSettings
-            // 
-            this._ReloadSettings.Location = new System.Drawing.Point(304, 242);
-            this._ReloadSettings.Name = "_ReloadSettings";
-            this._ReloadSettings.Size = new System.Drawing.Size(105, 23);
-            this._ReloadSettings.TabIndex = 13;
-            this._ReloadSettings.Text = "Reload Settings";
-            this._ReloadSettings.UseVisualStyleBackColor = true;
-            this._ReloadSettings.Click += new System.EventHandler(this._ReloadSettings_Click);
-            // 
-            // _NeighborState
-            // 
-            this._NeighborState.AutoSize = true;
-            this._NeighborState.Location = new System.Drawing.Point(9, 226);
-            this._NeighborState.Name = "_NeighborState";
-            this._NeighborState.Size = new System.Drawing.Size(117, 17);
-            this._NeighborState.TabIndex = 14;
-            this._NeighborState.Text = "Neighbor Count On";
-            this._NeighborState.UseVisualStyleBackColor = true;
-            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -478,7 +483,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button _SetTickSpeed;
         private System.Windows.Forms.NumericUpDown _Speed;
-        private System.Windows.Forms.CheckBox _Torodal;
+        private System.Windows.Forms.CheckBox _Toroidal;
         private GraphicsPanel DeadFont_pre;
         private System.Windows.Forms.Button DeadFont;
         private System.Windows.Forms.Label Height;

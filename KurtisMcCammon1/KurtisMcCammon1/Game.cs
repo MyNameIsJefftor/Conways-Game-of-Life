@@ -32,7 +32,7 @@ namespace KurtisMcCammon1
         // The event called by the timer every Interval milliseconds.
         private void Timer_Tick(object sender, EventArgs e)
         {
-            Universe.NextGeneration();
+            Universe.NextGeneration(Settings.torofinite);
             GenCount.Text = "Generations = " + Universe.generations.ToString();
             graphicsPanel1.Invalidate();
         }
@@ -136,7 +136,7 @@ namespace KurtisMcCammon1
                 Universe.CellVerse[(int)x, (int)y] = !Universe.CellVerse[(int)x, (int)y];
 
                 //count
-                Universe.CellCount();
+                Universe.CellCount(Settings.torofinite);
                 _CellCount.Text = "Count = " + Universe.liveCells.ToString();
                 // Tell Windows you need to repaint
                 graphicsPanel1.Invalidate();
@@ -161,7 +161,7 @@ namespace KurtisMcCammon1
 
         private void _NextGen(object sender, EventArgs e)
         {
-            Universe.NextGeneration();
+            Universe.NextGeneration(Settings.torofinite);
             GenCount.Text = "Generations = " + Universe.generations.ToString();
             _CellCount.Text = "Count = " + Universe.liveCells.ToString();
             graphicsPanel1.Invalidate();
@@ -176,12 +176,12 @@ namespace KurtisMcCammon1
             graphicsPanel1.Invalidate();
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExitProgram(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void theGoodToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SettingsMenu(object sender, EventArgs e)
         {
             Settings dlg = new Settings();
             dlg.Real = Settings;
@@ -204,7 +204,7 @@ namespace KurtisMcCammon1
             graphicsPanel1.Invalidate();
         }
 
-        private void timeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void GetSeedSelection(object sender, EventArgs e)
         {
             SeedSelection dlg = new SeedSelection();
             dlg.Seed = Settings.Seed;
@@ -212,12 +212,12 @@ namespace KurtisMcCammon1
             {
                 Universe = new UniverseHandler(Settings.UniverseHeight, Settings.UniverseWidth);
                 Settings.Seed = dlg.Seed;
-                Universe.GenerateWorldSeed(dlg.Seed);
+                Universe.GenerateWorldSeed(dlg.Seed, Settings.torofinite);
             }
             graphicsPanel1.Invalidate();
         }
 
-        private void Game_FormClosed(object sender, FormClosedEventArgs e)
+        private void GameClose(object sender, FormClosedEventArgs e)
         {
             Properties.Settings.Default.torofinite = Settings.torofinite;
             Properties.Settings.Default.LivingFontColor = Settings.LivingFontColor;
@@ -238,7 +238,7 @@ namespace KurtisMcCammon1
             Properties.Settings.Default.Save();
         }
 
-        private void saveToolStripButton_Click(object sender, EventArgs e)
+        private void SaveFile_Click(object sender, EventArgs e)
         {
             SaveFileDialog dlg = new SaveFileDialog();
             dlg.Filter = "All Files|*.*|Cells|*.cells";
@@ -254,7 +254,7 @@ namespace KurtisMcCammon1
                 writer.WriteLine("!This was made in Kurtis McCammon's Cellular Test Program");
 
                 // Iterate through the universe one row at a time.
-                for (int y = 0; y < Universe.CellVerse.GetLength(0); y++)
+                for (int y = 0; y < Universe.CellVerse.GetLength(1); y++)
      {
                     // Create a string to represent the current row.
                     String currentRow = string.Empty;
@@ -266,7 +266,7 @@ namespace KurtisMcCammon1
                         // to the row string.
                         if (Universe.CellVerse[x, y])
                         {
-                            currentRow += "0";
+                            currentRow += "O";
                         }
 
                         // Else if the universe[x,y] is dead then append '.' (period)
@@ -277,14 +277,103 @@ namespace KurtisMcCammon1
                         }
                     }
 
-                    // Once the current row has been read through and the 
-                    // string constructed then write it to the file using WriteLine.
+                    // Write the string to save file
                     writer.WriteLine(currentRow);
                 }
 
-                // After all rows and columns have been written then close the file.
                 writer.Close();
             }
+        }
+
+        private void OpenFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+
+            dlg.Filter = "All Files|*.*|Cells|*.cells";
+            dlg.FilterIndex = 2;
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                StreamReader reader = new StreamReader(dlg.FileName);
+
+                int maxWidth = 0;
+                int maxHeight = 0;
+
+                // Iterate through the file once to get its size.
+                while (!reader.EndOfStream)
+                {
+                    // Read one row at a time.
+                    string row = reader.ReadLine();
+
+                    // Ignores !
+                    if (row[0] == '!')
+                    {
+                        continue;
+                    }
+
+                    // If the row is not a comment then it is a row of cells.
+                    // Increment the maxHeight variable for each row read.
+                    else
+                    {
+                        maxHeight++;
+                        // Get the length of the current row string
+                        // and adjust the maxWidth variable if necessary.
+                        if(row.Length > maxWidth)
+                        {
+                            maxWidth = row.Length;
+                        }
+                    }
+
+
+                }
+
+                // Resize the current universe and scratchPad
+                // to the width and height of the file calculated above.
+                Universe = new UniverseHandler(maxHeight, maxWidth);
+                Settings.UniverseHeight = maxHeight;
+                Settings.UniverseWidth = maxWidth;
+
+                // Reset the file pointer back to the beginning of the file.
+                reader.BaseStream.Seek(0, SeekOrigin.Begin);
+                int height = 0;
+
+                // Iterate through the file again, this time reading in the cells.
+                while (!reader.EndOfStream)
+                {
+                    // Read one row at a time.
+                    string row = reader.ReadLine();
+
+                    // If the row begins with '!' then
+                    // it is a comment and should be ignored.
+                    if(row[0] == '!')
+                    {
+                        continue;
+                    }
+
+                    // Not a comment then add them cells
+                    else
+                    {
+                            for (int xPos = 0; xPos < row.Length; xPos++)
+                            {
+                                // O = Alive
+                                if (row[xPos] == 'O')
+                                {
+                                    Universe.CellVerse[xPos, height] = true;
+                                }
+                                // . = Dead
+                                else
+                                {
+                                    Universe.CellVerse[xPos, height] = false;
+                                }
+                            }
+                        height++;
+                    }
+                }
+
+                // ALWAYS CLOSE THE FILE
+                reader.Close();
+            }
+            graphicsPanel1.Invalidate();
         }
     }
 }

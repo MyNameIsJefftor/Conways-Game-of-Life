@@ -40,6 +40,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.theGoodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.timeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.customizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -55,7 +56,6 @@
             this._CellCount = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelGenerations = new System.Windows.Forms.ToolStripStatusLabel();
             this.CellCount = new System.Windows.Forms.ToolStripStatusLabel();
-            this.timeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.seedTheUniverseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -141,14 +141,21 @@
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitProgram);
             // 
             // theGoodToolStripMenuItem
             // 
             this.theGoodToolStripMenuItem.Name = "theGoodToolStripMenuItem";
             this.theGoodToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.theGoodToolStripMenuItem.Text = "Settings";
-            this.theGoodToolStripMenuItem.Click += new System.EventHandler(this.theGoodToolStripMenuItem_Click);
+            this.theGoodToolStripMenuItem.Click += new System.EventHandler(this.SettingsMenu);
+            // 
+            // timeToolStripMenuItem
+            // 
+            this.timeToolStripMenuItem.Name = "timeToolStripMenuItem";
+            this.timeToolStripMenuItem.Size = new System.Drawing.Size(112, 20);
+            this.timeToolStripMenuItem.Text = "Seed the Universe";
+            this.timeToolStripMenuItem.Click += new System.EventHandler(this.GetSeedSelection);
             // 
             // customizeToolStripMenuItem
             // 
@@ -196,6 +203,7 @@
             this.openToolStripButton.Name = "openToolStripButton";
             this.openToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.openToolStripButton.Text = "&Open";
+            this.openToolStripButton.Click += new System.EventHandler(this.OpenFile_Click);
             // 
             // saveToolStripButton
             // 
@@ -205,7 +213,7 @@
             this.saveToolStripButton.Name = "saveToolStripButton";
             this.saveToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.saveToolStripButton.Text = "&Save";
-            this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripButton_Click);
+            this.saveToolStripButton.Click += new System.EventHandler(this.SaveFile_Click);
             // 
             // toolStripSeparator3
             // 
@@ -276,13 +284,6 @@
             this.CellCount.Size = new System.Drawing.Size(63, 17);
             this.CellCount.Text = "Cell Count";
             // 
-            // timeToolStripMenuItem
-            // 
-            this.timeToolStripMenuItem.Name = "timeToolStripMenuItem";
-            this.timeToolStripMenuItem.Size = new System.Drawing.Size(112, 20);
-            this.timeToolStripMenuItem.Text = "Seed the Universe";
-            this.timeToolStripMenuItem.Click += new System.EventHandler(this.timeToolStripMenuItem_Click);
-            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -296,14 +297,14 @@
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
-            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.theGoodToolStripMenuItem_Click);
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.SettingsMenu);
             // 
             // seedTheUniverseToolStripMenuItem
             // 
             this.seedTheUniverseToolStripMenuItem.Name = "seedTheUniverseToolStripMenuItem";
             this.seedTheUniverseToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.seedTheUniverseToolStripMenuItem.Text = "Seed the Universe";
-            this.seedTheUniverseToolStripMenuItem.Click += new System.EventHandler(this.timeToolStripMenuItem_Click);
+            this.seedTheUniverseToolStripMenuItem.Click += new System.EventHandler(this.GetSeedSelection);
             // 
             // graphicsPanel1
             // 
@@ -329,7 +330,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Game";
             this.Text = "Form1";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Game_FormClosed);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GameClose);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);

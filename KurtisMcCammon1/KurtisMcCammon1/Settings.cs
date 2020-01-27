@@ -121,6 +121,7 @@ namespace KurtisMcCammon1
             _UHeight.Value = Real.UniverseHeight;
             _Speed.Value = Real.TickSpeed;
 
+            _Toroidal.Checked = Real.torofinite;
             _GridOn.Checked = Real.Grid;
             _NeighborState.Checked = Real.Neighbor;
             Temp = Real.Copy();
@@ -134,6 +135,7 @@ namespace KurtisMcCammon1
         {
             Temp.Grid = _GridOn.Checked;
             Temp.Neighbor = _NeighborState.Checked;
+            Temp.torofinite = _Toroidal.Checked;
             this.DialogResult = DialogResult.OK;
         }
 
