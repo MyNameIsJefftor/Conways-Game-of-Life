@@ -28,11 +28,11 @@ namespace KurtisMcCammon1
 
         public UniverseHandler(int universeHeight, int universeWidth)
         {
-            if(universeHeight < 5)
+            if (universeHeight < 5)
             {
                 universeHeight = 5;
             }
-            if(universeWidth < 5)
+            if (universeWidth < 5)
             {
                 universeWidth = 5;
             }

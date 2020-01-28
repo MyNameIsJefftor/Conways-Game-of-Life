@@ -112,7 +112,19 @@ namespace KurtisMcCammon1
                     // Outline the cell with a pen
                     if (Settings.Grid)
                     {
-                        e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
+                        float LineX = 0;
+                        float LineY = 0;
+                        //e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
+                        for (int linecount = 0; linecount < Universe.CellVerse.GetLength(0); linecount++)
+                        {
+                            LineX += cellWidth;
+                            e.Graphics.DrawLine(gridPen, LineX, 0, LineX, ClientSize.Height);
+                        }
+                        for (int linecount = 0; linecount < Universe.CellVerse.GetLength(1); linecount++)
+                        {
+                            LineY += cellHeight;
+                            e.Graphics.DrawLine(gridPen, 0, LineY, ClientSize.Width, LineY);
+                        }
                     }
                     TextColor.Dispose();
                     stringFormat.Dispose();
@@ -515,6 +527,12 @@ namespace KurtisMcCammon1
                 reader.Close();
             }
             Universe.CellCount(Settings.torofinite);
+            graphicsPanel1.Invalidate();
+        }
+
+        private void _ReUseSeed_Click(object sender, EventArgs e)
+        {
+            Universe.GenerateWorldSeed(Settings.Seed, Settings.torofinite);
             graphicsPanel1.Invalidate();
         }
     }
