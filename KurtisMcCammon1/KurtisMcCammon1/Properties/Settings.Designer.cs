@@ -190,5 +190,29 @@ namespace KurtisMcCammon1.Properties {
                 this["Neighbor"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Purple")]
+        public global::System.Drawing.Color HudColor {
+            get {
+                return ((global::System.Drawing.Color)(this["HudColor"]));
+            }
+            set {
+                this["HudColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool HudOn {
+            get {
+                return ((bool)(this["HudOn"]));
+            }
+            set {
+                this["HudOn"] = value;
+            }
+        }
     }
 }

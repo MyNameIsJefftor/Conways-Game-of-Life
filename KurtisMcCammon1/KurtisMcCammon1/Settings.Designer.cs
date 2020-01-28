@@ -33,19 +33,12 @@
             this.SettingsMenu = new System.Windows.Forms.TabControl();
             this._Color = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.DeadFont_pre = new KurtisMcCammon1.GraphicsPanel();
             this.DeadFont = new System.Windows.Forms.Button();
-            this.BirthCell_txtpre = new KurtisMcCammon1.GraphicsPanel();
-            this.DyeCell_txtpre = new KurtisMcCammon1.GraphicsPanel();
-            this.LivingCell_txtpre = new KurtisMcCammon1.GraphicsPanel();
             this.BirthFontColor = new System.Windows.Forms.Button();
             this.DyingFontColor = new System.Windows.Forms.Button();
             this.LivingFontColor = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.BorderColor_pre = new KurtisMcCammon1.GraphicsPanel();
             this.BorderColor = new System.Windows.Forms.Button();
-            this.DeadCell_pre = new KurtisMcCammon1.GraphicsPanel();
-            this.LivingCell_pre = new KurtisMcCammon1.GraphicsPanel();
             this.DeadCellColor = new System.Windows.Forms.Button();
             this.LivingCellColor = new System.Windows.Forms.Button();
             this._UniverseControl = new System.Windows.Forms.TabPage();
@@ -63,6 +56,16 @@
             this._SetUY = new System.Windows.Forms.Button();
             this._UWidth = new System.Windows.Forms.NumericUpDown();
             this._UHeight = new System.Windows.Forms.NumericUpDown();
+            this.HudColor = new System.Windows.Forms.Button();
+            this.HudStateBox = new System.Windows.Forms.CheckBox();
+            this.HudColorPre = new KurtisMcCammon1.GraphicsPanel();
+            this.DeadFont_pre = new KurtisMcCammon1.GraphicsPanel();
+            this.BirthCell_txtpre = new KurtisMcCammon1.GraphicsPanel();
+            this.DyeCell_txtpre = new KurtisMcCammon1.GraphicsPanel();
+            this.LivingCell_txtpre = new KurtisMcCammon1.GraphicsPanel();
+            this.BorderColor_pre = new KurtisMcCammon1.GraphicsPanel();
+            this.DeadCell_pre = new KurtisMcCammon1.GraphicsPanel();
+            this.LivingCell_pre = new KurtisMcCammon1.GraphicsPanel();
             this.SettingsMenu.SuspendLayout();
             this._Color.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -118,6 +121,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.HudColorPre);
+            this.groupBox2.Controls.Add(this.HudColor);
             this.groupBox2.Controls.Add(this.DeadFont_pre);
             this.groupBox2.Controls.Add(this.DeadFont);
             this.groupBox2.Controls.Add(this.BirthCell_txtpre);
@@ -133,17 +138,9 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Text Color";
             // 
-            // DeadFont_pre
-            // 
-            this.DeadFont_pre.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.DeadFont_pre.Location = new System.Drawing.Point(284, 97);
-            this.DeadFont_pre.Name = "DeadFont_pre";
-            this.DeadFont_pre.Size = new System.Drawing.Size(23, 23);
-            this.DeadFont_pre.TabIndex = 5;
-            // 
             // DeadFont
             // 
-            this.DeadFont.Location = new System.Drawing.Point(186, 97);
+            this.DeadFont.Location = new System.Drawing.Point(144, 97);
             this.DeadFont.Name = "DeadFont";
             this.DeadFont.Size = new System.Drawing.Size(75, 23);
             this.DeadFont.TabIndex = 4;
@@ -151,33 +148,9 @@
             this.DeadFont.UseVisualStyleBackColor = true;
             this.DeadFont.Click += new System.EventHandler(this.DeadFont_Click);
             // 
-            // BirthCell_txtpre
-            // 
-            this.BirthCell_txtpre.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.BirthCell_txtpre.Location = new System.Drawing.Point(284, 42);
-            this.BirthCell_txtpre.Name = "BirthCell_txtpre";
-            this.BirthCell_txtpre.Size = new System.Drawing.Size(23, 23);
-            this.BirthCell_txtpre.TabIndex = 3;
-            // 
-            // DyeCell_txtpre
-            // 
-            this.DyeCell_txtpre.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.DyeCell_txtpre.Location = new System.Drawing.Point(105, 97);
-            this.DyeCell_txtpre.Name = "DyeCell_txtpre";
-            this.DyeCell_txtpre.Size = new System.Drawing.Size(23, 23);
-            this.DyeCell_txtpre.TabIndex = 3;
-            // 
-            // LivingCell_txtpre
-            // 
-            this.LivingCell_txtpre.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.LivingCell_txtpre.Location = new System.Drawing.Point(105, 42);
-            this.LivingCell_txtpre.Name = "LivingCell_txtpre";
-            this.LivingCell_txtpre.Size = new System.Drawing.Size(23, 23);
-            this.LivingCell_txtpre.TabIndex = 3;
-            // 
             // BirthFontColor
             // 
-            this.BirthFontColor.Location = new System.Drawing.Point(186, 42);
+            this.BirthFontColor.Location = new System.Drawing.Point(144, 42);
             this.BirthFontColor.Name = "BirthFontColor";
             this.BirthFontColor.Size = new System.Drawing.Size(75, 23);
             this.BirthFontColor.TabIndex = 2;
@@ -220,14 +193,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cell Color";
             // 
-            // BorderColor_pre
-            // 
-            this.BorderColor_pre.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.BorderColor_pre.Location = new System.Drawing.Point(284, 35);
-            this.BorderColor_pre.Name = "BorderColor_pre";
-            this.BorderColor_pre.Size = new System.Drawing.Size(23, 23);
-            this.BorderColor_pre.TabIndex = 5;
-            // 
             // BorderColor
             // 
             this.BorderColor.Location = new System.Drawing.Point(186, 35);
@@ -237,22 +202,6 @@
             this.BorderColor.Text = "Border";
             this.BorderColor.UseVisualStyleBackColor = true;
             this.BorderColor.Click += new System.EventHandler(this.BorderColor_Click);
-            // 
-            // DeadCell_pre
-            // 
-            this.DeadCell_pre.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.DeadCell_pre.Location = new System.Drawing.Point(105, 96);
-            this.DeadCell_pre.Name = "DeadCell_pre";
-            this.DeadCell_pre.Size = new System.Drawing.Size(23, 23);
-            this.DeadCell_pre.TabIndex = 3;
-            // 
-            // LivingCell_pre
-            // 
-            this.LivingCell_pre.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.LivingCell_pre.Location = new System.Drawing.Point(105, 35);
-            this.LivingCell_pre.Name = "LivingCell_pre";
-            this.LivingCell_pre.Size = new System.Drawing.Size(23, 23);
-            this.LivingCell_pre.TabIndex = 2;
             // 
             // DeadCellColor
             // 
@@ -276,6 +225,7 @@
             // 
             // _UniverseControl
             // 
+            this._UniverseControl.Controls.Add(this.HudStateBox);
             this._UniverseControl.Controls.Add(this._NeighborState);
             this._UniverseControl.Controls.Add(this._ReloadSettings);
             this._UniverseControl.Controls.Add(this._ResetSettings);
@@ -374,9 +324,19 @@
             4,
             0,
             0});
+            this._Speed.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this._Speed.Name = "_Speed";
             this._Speed.Size = new System.Drawing.Size(87, 20);
             this._Speed.TabIndex = 7;
+            this._Speed.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // label2
             // 
@@ -419,16 +379,130 @@
             // _UWidth
             // 
             this._UWidth.Location = new System.Drawing.Point(6, 45);
+            this._UWidth.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this._UWidth.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             this._UWidth.Name = "_UWidth";
             this._UWidth.Size = new System.Drawing.Size(87, 20);
             this._UWidth.TabIndex = 1;
+            this._UWidth.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             // 
             // _UHeight
             // 
             this._UHeight.Location = new System.Drawing.Point(99, 45);
+            this._UHeight.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this._UHeight.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             this._UHeight.Name = "_UHeight";
             this._UHeight.Size = new System.Drawing.Size(87, 20);
             this._UHeight.TabIndex = 0;
+            this._UHeight.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // HudColor
+            // 
+            this.HudColor.Location = new System.Drawing.Point(278, 42);
+            this.HudColor.Name = "HudColor";
+            this.HudColor.Size = new System.Drawing.Size(75, 23);
+            this.HudColor.TabIndex = 4;
+            this.HudColor.Text = "Hud Font";
+            this.HudColor.UseVisualStyleBackColor = true;
+            this.HudColor.Click += new System.EventHandler(this.HudColor_Click);
+            // 
+            // HudStateBox
+            // 
+            this.HudStateBox.AutoSize = true;
+            this.HudStateBox.Location = new System.Drawing.Point(9, 249);
+            this.HudStateBox.Name = "HudStateBox";
+            this.HudStateBox.Size = new System.Drawing.Size(63, 17);
+            this.HudStateBox.TabIndex = 15;
+            this.HudStateBox.Text = "Hud On";
+            this.HudStateBox.UseVisualStyleBackColor = true;
+            // 
+            // HudColorPre
+            // 
+            this.HudColorPre.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.HudColorPre.Location = new System.Drawing.Point(376, 42);
+            this.HudColorPre.Name = "HudColorPre";
+            this.HudColorPre.Size = new System.Drawing.Size(23, 23);
+            this.HudColorPre.TabIndex = 5;
+            // 
+            // DeadFont_pre
+            // 
+            this.DeadFont_pre.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.DeadFont_pre.Location = new System.Drawing.Point(242, 97);
+            this.DeadFont_pre.Name = "DeadFont_pre";
+            this.DeadFont_pre.Size = new System.Drawing.Size(23, 23);
+            this.DeadFont_pre.TabIndex = 5;
+            // 
+            // BirthCell_txtpre
+            // 
+            this.BirthCell_txtpre.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.BirthCell_txtpre.Location = new System.Drawing.Point(242, 42);
+            this.BirthCell_txtpre.Name = "BirthCell_txtpre";
+            this.BirthCell_txtpre.Size = new System.Drawing.Size(23, 23);
+            this.BirthCell_txtpre.TabIndex = 3;
+            // 
+            // DyeCell_txtpre
+            // 
+            this.DyeCell_txtpre.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.DyeCell_txtpre.Location = new System.Drawing.Point(105, 97);
+            this.DyeCell_txtpre.Name = "DyeCell_txtpre";
+            this.DyeCell_txtpre.Size = new System.Drawing.Size(23, 23);
+            this.DyeCell_txtpre.TabIndex = 3;
+            // 
+            // LivingCell_txtpre
+            // 
+            this.LivingCell_txtpre.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.LivingCell_txtpre.Location = new System.Drawing.Point(105, 42);
+            this.LivingCell_txtpre.Name = "LivingCell_txtpre";
+            this.LivingCell_txtpre.Size = new System.Drawing.Size(23, 23);
+            this.LivingCell_txtpre.TabIndex = 3;
+            // 
+            // BorderColor_pre
+            // 
+            this.BorderColor_pre.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.BorderColor_pre.Location = new System.Drawing.Point(284, 35);
+            this.BorderColor_pre.Name = "BorderColor_pre";
+            this.BorderColor_pre.Size = new System.Drawing.Size(23, 23);
+            this.BorderColor_pre.TabIndex = 5;
+            // 
+            // DeadCell_pre
+            // 
+            this.DeadCell_pre.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.DeadCell_pre.Location = new System.Drawing.Point(105, 96);
+            this.DeadCell_pre.Name = "DeadCell_pre";
+            this.DeadCell_pre.Size = new System.Drawing.Size(23, 23);
+            this.DeadCell_pre.TabIndex = 3;
+            // 
+            // LivingCell_pre
+            // 
+            this.LivingCell_pre.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.LivingCell_pre.Location = new System.Drawing.Point(105, 35);
+            this.LivingCell_pre.Name = "LivingCell_pre";
+            this.LivingCell_pre.Size = new System.Drawing.Size(23, 23);
+            this.LivingCell_pre.TabIndex = 2;
             // 
             // Settings
             // 
@@ -492,5 +566,8 @@
         private System.Windows.Forms.Button _ResetSettings;
         private System.Windows.Forms.Button _ReloadSettings;
         private System.Windows.Forms.CheckBox _NeighborState;
+        private GraphicsPanel HudColorPre;
+        private System.Windows.Forms.Button HudColor;
+        private System.Windows.Forms.CheckBox HudStateBox;
     }
 }

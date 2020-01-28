@@ -8,7 +8,7 @@ namespace KurtisMcCammon1
     public partial class Game : Form
     {
         UniverseHandler Universe;
-        UserSettings Settings = new UserSettings(Properties.Settings.Default.torofinite, Properties.Settings.Default.LivingFontColor, Properties.Settings.Default.BirthFontColor, Properties.Settings.Default.DeadFontColor, Properties.Settings.Default.DyingFontColor, Properties.Settings.Default.Background, Properties.Settings.Default.CellColor, Properties.Settings.Default.GridLines, Properties.Settings.Default.TickSpeed, Properties.Settings.Default.UniverseWidth, Properties.Settings.Default.UniverseHeight, Properties.Settings.Default.Seed, Properties.Settings.Default.Grid, Properties.Settings.Default.Neighbor);
+        UserSettings Settings = new UserSettings(Properties.Settings.Default.torofinite, Properties.Settings.Default.LivingFontColor, Properties.Settings.Default.BirthFontColor, Properties.Settings.Default.DeadFontColor, Properties.Settings.Default.DyingFontColor, Properties.Settings.Default.HudColor, Properties.Settings.Default.Background, Properties.Settings.Default.CellColor, Properties.Settings.Default.GridLines, Properties.Settings.Default.TickSpeed, Properties.Settings.Default.UniverseWidth, Properties.Settings.Default.UniverseHeight, Properties.Settings.Default.Seed, Properties.Settings.Default.Grid, Properties.Settings.Default.Neighbor, Properties.Settings.Default.HudOn);
         UserSettings BootUpsets;
 
         // The Timer class
@@ -46,14 +46,21 @@ namespace KurtisMcCammon1
             float cellWidth = (float)graphicsPanel1.ClientSize.Width / Universe.CellVerse.GetLength(0);
             // CELL HEIGHT = WINDOW HEIGHT / NUMBER OF CELLS IN Y
             float cellHeight = (float)graphicsPanel1.ClientSize.Height / Universe.CellVerse.GetLength(1);
+            float hudSize = (float)graphicsPanel1.ClientSize.Height / 25;
 
             // A Pen for drawing the grid lines (color, width)
             Pen gridPen = new Pen(Settings.GridLines, 1);
 
             // A Brush for filling living cells interiors (color)
             Brush cellBrush = new SolidBrush(Settings.CellColor);
-
-
+            if (graphicsPanel1.ClientSize.Height / 25 < 15)
+            {
+                hudSize = 15;
+            }
+            else if (graphicsPanel1.ClientSize.Height / 25 > 30)
+            {
+                hudSize = 30;
+            }
             // Iterate through the universe in the y, top to bottom
             for (int y = 0; y < Universe.CellVerse.GetLength(1); y++)
             {
@@ -66,8 +73,8 @@ namespace KurtisMcCammon1
                     cellRect.Y = y * cellHeight;
                     cellRect.Width = cellWidth;
                     cellRect.Height = cellHeight;
-
                     Font font = new Font("Arial", (cellHeight * 3 / 4));
+
                     Brush TextColor = new SolidBrush(Settings.LivingFontColor);
 
                     StringFormat stringFormat = new StringFormat();
@@ -107,10 +114,29 @@ namespace KurtisMcCammon1
                     {
                         e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
                     }
+                    TextColor.Dispose();
+                    stringFormat.Dispose();
+                    font.Dispose();
                 }
             }
-            _CellCount.Text = "Count = " + Universe.liveCells.ToString();
-
+            
+            if (Settings.HudOn)
+            {
+                Font HudFont = new Font("Comic Sans MS", hudSize, FontStyle.Bold);
+                Color HudAdjust = Color.FromArgb(125, Settings.HudFontColor);
+                Brush HudColor = new SolidBrush(HudAdjust);
+                StringFormat HudFormat = new StringFormat();
+                HudFormat.Alignment = StringAlignment.Near;
+                HudFormat.LineAlignment = StringAlignment.Far;
+                _CellCount.Text = "Count = " + Universe.liveCells.ToString();
+                string UniType = "Finite";
+                if (Settings.torofinite)
+                {
+                    UniType = "Toroidal";
+                }
+                e.Graphics.DrawString($"Living Cells : {Universe.liveCells}\nGeneration : {Universe.generations}\nUniverse Size : {Universe.CellVerse.GetLength(0)} x {Universe.CellVerse.GetLength(1)}\nUniverse Type : {UniType}", HudFont, HudColor, graphicsPanel1.ClientRectangle, HudFormat);
+                HudFont.Dispose();
+            }
             // Cleaning up pens and brushes
             gridPen.Dispose();
             cellBrush.Dispose();
@@ -329,7 +355,7 @@ namespace KurtisMcCammon1
 
                 // Resize the current universe and scratchPad
                 // to the width and height of the file calculated above.
-                Universe = new UniverseHandler(maxHeight, maxWidth);
+                Universe = new UniverseHandler(maxWidth, maxHeight);
                 Settings.UniverseHeight = maxHeight;
                 Settings.UniverseWidth = maxWidth;
 
@@ -373,6 +399,122 @@ namespace KurtisMcCammon1
                 // ALWAYS CLOSE THE FILE
                 reader.Close();
             }
+            Universe.CellCount(Settings.torofinite);
+            graphicsPanel1.Invalidate();
+        }
+
+        private void importToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+
+            dlg.Filter = "All Files|*.*|Cells|*.cells";
+            dlg.FilterIndex = 2;
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                StreamReader reader = new StreamReader(dlg.FileName);
+
+                int maxWidth = 0;
+                int maxHeight = 0;
+
+                // Iterate through the file once to get its size.
+                while (!reader.EndOfStream)
+                {
+                    // Read one row at a time.
+                    string row = reader.ReadLine();
+
+                    // Ignores !
+                    if (row[0] == '!')
+                    {
+                        continue;
+                    }
+
+                    // If the row is not a comment then it is a row of cells.
+                    // Increment the maxHeight variable for each row read.
+                    else
+                    {
+                        maxHeight++;
+                        // Get the length of the current row string
+                        // and adjust the maxWidth variable if necessary.
+                        if (row.Length > maxWidth)
+                        {
+                            maxWidth = row.Length;
+                        }
+                    }
+
+
+                }
+
+                // Resize the current universe and scratchPad
+                // to the width and height of the file calculated above.
+                int StartHeight = 0;
+                int StartWidth = 0;
+                if (maxWidth > Universe.CellVerse.GetLength(0) || maxHeight > Universe.CellVerse.GetLength(1))
+                {
+                    Universe = new UniverseHandler(maxWidth, maxHeight);
+                    Settings.UniverseHeight = maxHeight;
+                    Settings.UniverseWidth = maxWidth;
+                }
+                else
+                {
+                    if((Universe.CellVerse.GetLength(0) - maxWidth) / 2 < 1)
+                    {
+                        StartWidth = 0;
+                    }
+                    else
+                    {
+                        StartWidth = (Universe.CellVerse.GetLength(0) - maxWidth) / 2;
+                    }
+                    if((Universe.CellVerse.GetLength(1) - maxHeight) / 2 < 1)
+                    {
+                        StartHeight = 0;
+                    }
+                    else
+                    {
+                        StartHeight = (Universe.CellVerse.GetLength(1) - maxHeight) / 2;
+                    }
+                }
+
+                // Reset the file pointer back to the beginning of the file.
+                reader.BaseStream.Seek(0, SeekOrigin.Begin);
+
+                // Iterate through the file again, this time reading in the cells.
+                while (!reader.EndOfStream)
+                {
+                    // Read one row at a time.
+                    string row = reader.ReadLine();
+
+                    // If the row begins with '!' then
+                    // it is a comment and should be ignored.
+                    if (row[0] == '!')
+                    {
+                        continue;
+                    }
+
+                    // Not a comment then add them cells
+                    else
+                    {
+                        for (int xPos = 0; xPos < row.Length; xPos++)
+                        {
+                            // O = Alive
+                            if (row[xPos] == 'O')
+                            {
+                                Universe.CellVerse[xPos + StartWidth, StartHeight] = true;
+                            }
+                            // . = Dead
+                            else
+                            {
+                                Universe.CellVerse[xPos + StartWidth, StartHeight] = false;
+                            }
+                        }
+                        StartHeight++;
+                    }
+                }
+
+                // ALWAYS CLOSE THE FILE
+                reader.Close();
+            }
+            Universe.CellCount(Settings.torofinite);
             graphicsPanel1.Invalidate();
         }
     }

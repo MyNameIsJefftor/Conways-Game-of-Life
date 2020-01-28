@@ -95,6 +95,16 @@ namespace KurtisMcCammon1
                 DeadFont_pre.BackColor = dlg.Color;
             }
         }
+        private void HudColor_Click(object sender, EventArgs e)
+        {
+            ColorDialog dlg = new ColorDialog();
+            dlg.Color = Real.HudFontColor;
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                Temp.HudFontColor = dlg.Color;
+                HudColorPre.BackColor = dlg.Color;
+            }
+        }
 
         private void _SetUniverse(object sender, EventArgs e)
         {
@@ -116,6 +126,7 @@ namespace KurtisMcCammon1
             BirthCell_txtpre.BackColor = Real.BirthFontColor;
             DyeCell_txtpre.BackColor = Real.DyingFontColor;
             DeadFont_pre.BackColor = Real.DeadFontColor;
+            HudColorPre.BackColor = Real.HudFontColor;
 
             _UWidth.Value = Real.UniverseWidth;
             _UHeight.Value = Real.UniverseHeight;
@@ -124,6 +135,7 @@ namespace KurtisMcCammon1
             _Toroidal.Checked = Real.torofinite;
             _GridOn.Checked = Real.Grid;
             _NeighborState.Checked = Real.Neighbor;
+            HudStateBox.Checked = Real.HudOn;
             Temp = Real.Copy();
         }
 
@@ -136,6 +148,7 @@ namespace KurtisMcCammon1
             Temp.Grid = _GridOn.Checked;
             Temp.Neighbor = _NeighborState.Checked;
             Temp.torofinite = _Toroidal.Checked;
+            Temp.HudOn = HudStateBox.Checked;
             this.DialogResult = DialogResult.OK;
         }
 
@@ -149,5 +162,6 @@ namespace KurtisMcCammon1
             Temp = new UserSettings();
             DialogResult = DialogResult.OK;
         }
+
     }
 }

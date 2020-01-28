@@ -24,6 +24,8 @@ namespace KurtisMcCammon1
         public Color DeadFontColor { get; set; }
         //Dieing
         public Color DyingFontColor { get; set; }
+        //Hud Color
+        public Color HudFontColor { get; set; }
 
         //cell colors
         //background
@@ -39,11 +41,12 @@ namespace KurtisMcCammon1
         public int UniverseWidth { get; set; }
         //height of universe
         public int UniverseHeight { get; set; }
-        
+
         //Seed number
         public int Seed { get; set; }
         public bool Grid { get; set; }
         public bool Neighbor { get; set; }
+        public bool HudOn { get; set; }
 
         //Default settings
         public UserSettings()
@@ -54,6 +57,7 @@ namespace KurtisMcCammon1
             BirthFontColor = Color.PeachPuff;
             DeadFontColor = Color.Gray;
             DyingFontColor = Color.DarkRed;
+            HudFontColor = Color.Purple;
 
             Background = Color.White;
             CellColor = Color.DarkGray;
@@ -66,9 +70,10 @@ namespace KurtisMcCammon1
             Seed = 69420;
             Grid = true;
             Neighbor = true;
+            HudOn = true;
         }
 
-        public UserSettings(bool toro, Color liv, Color Bir, Color Ded, Color Dye, Color Back, Color Cell, Color GridColor, int tic, int Wid, int hi, int see, bool gridState, bool neighborState)
+        public UserSettings(bool toro, Color liv, Color Bir, Color Ded, Color Dye, Color Hud, Color Back, Color Cell, Color GridColor, int tic, int Wid, int hi, int see, bool gridState, bool neighborState, bool HudState)
         {
             torofinite = toro;
 
@@ -76,6 +81,7 @@ namespace KurtisMcCammon1
             BirthFontColor = Bir;
             DeadFontColor = Ded;
             DyingFontColor = Dye;
+            HudFontColor = Hud;
 
             Background = Back;
             CellColor = Cell;
@@ -88,6 +94,7 @@ namespace KurtisMcCammon1
             Seed = see;
             Grid = gridState;
             Neighbor = neighborState;
+            HudOn = HudState;
         }
         public UserSettings Copy()
         {

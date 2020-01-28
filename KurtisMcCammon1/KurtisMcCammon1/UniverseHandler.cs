@@ -28,11 +28,18 @@ namespace KurtisMcCammon1
 
         public UniverseHandler(int universeHeight, int universeWidth)
         {
+            if(universeHeight < 5)
+            {
+                universeHeight = 5;
+            }
+            if(universeWidth < 5)
+            {
+                universeWidth = 5;
+            }
             CellVerse = new bool[universeHeight, universeWidth];
             neighbourCount = new int[universeHeight, universeWidth];
             generations = 0;
         }
-
         public void CellCount(bool toroid)
         {
             liveCells = 0;
@@ -86,10 +93,10 @@ namespace KurtisMcCammon1
         //counts the neighbors that are alive.
         private void NeighborCheck(int x, int y, bool Torod)
         {
-            int posx = -1;
-            int posy = -1;
             if (!Torod)
             {
+                int posx = x;
+                int posy = y;
                 if (CellVerse[posx, posy])
                 {
                     liveCells++;
@@ -143,6 +150,8 @@ namespace KurtisMcCammon1
             }
             else
             {
+                int posx = -1;
+                int posy = -1;
                 if (CellVerse[x, y])
                 {
                     liveCells++;
