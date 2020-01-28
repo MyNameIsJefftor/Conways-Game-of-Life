@@ -26,18 +26,18 @@ namespace KurtisMcCammon1
             generations = 0;
         }
 
-        public UniverseHandler(int universeHeight, int universeWidth)
+        public UniverseHandler(int universeWidth, int universeHeight)
         {
-            if (universeHeight < 5)
-            {
-                universeHeight = 5;
-            }
             if (universeWidth < 5)
             {
                 universeWidth = 5;
             }
-            CellVerse = new bool[universeHeight, universeWidth];
-            neighbourCount = new int[universeHeight, universeWidth];
+            if (universeHeight < 5)
+            {
+                universeHeight = 5;
+            }
+            CellVerse = new bool[universeWidth, universeHeight];
+            neighbourCount = new int[universeWidth, universeHeight];
             generations = 0;
         }
         public void CellCount(bool toroid)

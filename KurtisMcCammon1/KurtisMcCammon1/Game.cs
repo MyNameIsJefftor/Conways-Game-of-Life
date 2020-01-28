@@ -75,7 +75,7 @@ namespace KurtisMcCammon1
                     cellRect.Height = cellHeight;
                     Font font = new Font("Arial", (cellHeight * 3 / 4));
 
-                    Brush TextColor = new SolidBrush(Settings.LivingFontColor);
+                    SolidBrush TextColor = new SolidBrush(Settings.LivingFontColor);
 
                     StringFormat stringFormat = new StringFormat();
                     stringFormat.Alignment = StringAlignment.Center;
@@ -87,7 +87,7 @@ namespace KurtisMcCammon1
                         //Is cell going to die next gen? Then change the brush color
                         if (Universe.neighbourCount[x, y] > 3 || Universe.neighbourCount[x, y] < 2)
                         {
-                            TextColor = new SolidBrush(Settings.DyingFontColor);
+                            TextColor.Color = Settings.DyingFontColor; //= new SolidBrush(Settings.DyingFontColor);
                         }
                         if (Settings.Neighbor)
                         {
@@ -101,37 +101,16 @@ namespace KurtisMcCammon1
                         //Is cell going to be born next gen? Then change the brush color
                         if (Universe.neighbourCount[x, y] == 3)
                         {
-                            TextColor = new SolidBrush(Settings.BirthFontColor);
+                            TextColor.Color = Settings.BirthFontColor;
                         }
                         if (Settings.Neighbor)
                         {
                             e.Graphics.DrawString(Universe.neighbourCount[x, y].ToString(), font, TextColor, cellRect, stringFormat);
                         }
                     }
-
-                    // Outline the cell with a pen
-                    if (Settings.Grid)
-                    {
-                        float LineX = 0;
-                        float LineY = 0;
-                        //e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
-                        for (int linecount = 0; linecount < Universe.CellVerse.GetLength(0); linecount++)
-                        {
-                            LineX += cellWidth;
-                            e.Graphics.DrawLine(gridPen, LineX, 0, LineX, ClientSize.Height);
-                        }
-                        for (int linecount = 0; linecount < Universe.CellVerse.GetLength(1); linecount++)
-                        {
-                            LineY += cellHeight;
-                            e.Graphics.DrawLine(gridPen, 0, LineY, ClientSize.Width, LineY);
-                        }
-                    }
-                    TextColor.Dispose();
-                    stringFormat.Dispose();
-                    font.Dispose();
                 }
             }
-            
+
             if (Settings.HudOn)
             {
                 Font HudFont = new Font("Comic Sans MS", hudSize, FontStyle.Bold);
@@ -148,6 +127,23 @@ namespace KurtisMcCammon1
                 }
                 e.Graphics.DrawString($"Living Cells : {Universe.liveCells}\nGeneration : {Universe.generations}\nUniverse Size : {Universe.CellVerse.GetLength(0)} x {Universe.CellVerse.GetLength(1)}\nUniverse Type : {UniType}", HudFont, HudColor, graphicsPanel1.ClientRectangle, HudFormat);
                 HudFont.Dispose();
+            }
+            // Outline the cell with a pen
+            if (Settings.Grid)
+            {
+                float LineX = 0;
+                float LineY = 0;
+                //e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
+                for (int linecount = 0; linecount < Universe.CellVerse.GetLength(0); linecount++)
+                {
+                    LineX += cellWidth;
+                    e.Graphics.DrawLine(gridPen, LineX, 0, LineX, ClientSize.Height);
+                }
+                for (int linecount = 0; linecount < Universe.CellVerse.GetLength(1); linecount++)
+                {
+                    LineY += cellHeight;
+                    e.Graphics.DrawLine(gridPen, 0, LineY, ClientSize.Width, LineY);
+                }
             }
             // Cleaning up pens and brushes
             gridPen.Dispose();
